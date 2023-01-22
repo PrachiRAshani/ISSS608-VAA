@@ -1,0 +1,5 @@
+---
+title: "Take Home Exercise 1"
+author: "Prachi Ashani"
+date: "`r Sys.Date()`"
+---

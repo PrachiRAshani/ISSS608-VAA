@@ -1,0 +1,13 @@
+---
+title: "In-class Exercise 01"
+author: "Prachi Ashani"
+date: "`r Sys.Date()`"
+---
+
+# Getting started with Tableau
+
+In this exercise, we use Tableau's Superstore data for analysis and visualization
+
+See below the dashboard of In-Class Exercise 1 -
+
+[![](images/Dashboard_1.png)](https://public.tableau.com/views/In-class_Ex01_16743561735800/SalesandProfitSummary2019-2022?:language=en-US&:display_count=n&:origin=viz_share_link)

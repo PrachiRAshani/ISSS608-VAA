@@ -1,6 +1,7 @@
 ---
 title: "Hands-on Exercise 1"
 author: "Prachi Ashani"
+date: "`r Sys.Date()`"
 ---
 
 # Getting Started
@@ -11,7 +12,9 @@ The code chunk below uses p_load() of pacman package to check if tidyverse packa
 
 ```{r}
 pacman::p_load(tidyverse)
+#package name with :: is used as the package has not been loaded in the r environment but you want to use the package functions for your project.
 ```
+
 
 ## Importing the data
 
