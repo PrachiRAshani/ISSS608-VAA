@@ -30,7 +30,7 @@ website:
 
 format:
   html:
-    theme: morph
+    theme: superhero
     css: styles.css
     toc: true
 

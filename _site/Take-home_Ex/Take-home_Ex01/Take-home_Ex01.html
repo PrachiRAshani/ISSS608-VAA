@@ -37,10 +37,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -139,7 +139,33 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data-processing" id="toc-data-processing" class="nav-link active" data-scroll-target="#data-processing">1. Data Processing</a>
+  <ul class="collapse">
+  <li><a href="#downloading-the-datasets" id="toc-downloading-the-datasets" class="nav-link" data-scroll-target="#downloading-the-datasets">1.1. Downloading the datasets</a></li>
+  <li><a href="#data-processing-1" id="toc-data-processing-1" class="nav-link" data-scroll-target="#data-processing-1">1.2. Data Processing</a></li>
+  <li><a href="#pivoting-the-worksheets-in-tableau" id="toc-pivoting-the-worksheets-in-tableau" class="nav-link" data-scroll-target="#pivoting-the-worksheets-in-tableau">1.3. Pivoting the worksheets in Tableau</a></li>
+  </ul></li>
+  <li><a href="#creating-the-tableau-dashboard" id="toc-creating-the-tableau-dashboard" class="nav-link" data-scroll-target="#creating-the-tableau-dashboard">2. Creating the Tableau Dashboard</a>
+  <ul class="collapse">
+  <li><a href="#union-of-two-datasets" id="toc-union-of-two-datasets" class="nav-link" data-scroll-target="#union-of-two-datasets">2.1. Union of two datasets</a></li>
+  <li><a href="#creating-new-variables-for-33-panel-charts" id="toc-creating-new-variables-for-33-panel-charts" class="nav-link" data-scroll-target="#creating-new-variables-for-33-panel-charts">2.2. Creating new variables for 3*3 panel charts</a></li>
+  <li><a href="#creating-new-variables-aggregating-the-female-and-male-population" id="toc-creating-new-variables-aggregating-the-female-and-male-population" class="nav-link" data-scroll-target="#creating-new-variables-aggregating-the-female-and-male-population">2.3. Creating new variables aggregating the female and male population</a></li>
+  <li><a href="#performing-table-calculations-for-proportions" id="toc-performing-table-calculations-for-proportions" class="nav-link" data-scroll-target="#performing-table-calculations-for-proportions">2.4. Performing table calculations for proportions</a></li>
+  <li><a href="#enhancing-the-aesthetics" id="toc-enhancing-the-aesthetics" class="nav-link" data-scroll-target="#enhancing-the-aesthetics">2.5. Enhancing the Aesthetics</a></li>
+  <li><a href="#creating-the-final-dashboard" id="toc-creating-the-final-dashboard" class="nav-link" data-scroll-target="#creating-the-final-dashboard">2.6. Creating the final dashboard</a></li>
+  </ul></li>
+  <li><a href="#the-analysis-studying-the-age-sex-pyramid-for-the-nine-most-populous-planning-areas-in-the-central-area" id="toc-the-analysis-studying-the-age-sex-pyramid-for-the-nine-most-populous-planning-areas-in-the-central-area" class="nav-link" data-scroll-target="#the-analysis-studying-the-age-sex-pyramid-for-the-nine-most-populous-planning-areas-in-the-central-area">3. The Analysis: Studying the age-sex pyramid for the nine most populous planning areas in the Central Area</a>
+  <ul class="collapse">
+  <li><a href="#choosing-the-planning-area" id="toc-choosing-the-planning-area" class="nav-link" data-scroll-target="#choosing-the-planning-area"><strong>3.1. Choosing the planning area:</strong></a></li>
+  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis"><strong>3.2. Data analysis:</strong></a></li>
+  <li><a href="#insights" id="toc-insights" class="nav-link" data-scroll-target="#insights"><strong>3.3. Insights:</strong></a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -173,8 +199,108 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<section id="data-processing" class="level1">
+<h1>1. Data Processing</h1>
+<section id="downloading-the-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="downloading-the-datasets">1.1. Downloading the datasets</h2>
+<p>The datasets, ‘Population of Males by Age Groups and Planning Areas’ and ‘Population of Females by Age Groups and Planning Areas,’ were sourced from Singapore’s Department of Statistics (SingStat) website. Click on this <a href="https://www.singstat.gov.sg/find-data/search-by-theme/population/geographic-distribution/latest-data">link</a> for more information.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://www.singstat.gov.sg/find-data/search-by-theme/population/geographic-distribution/latest-data"><img src="images/Data download.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</section>
+<section id="data-processing-1" class="level2">
+<h2 class="anchored" data-anchor-id="data-processing-1">1.2. Data Processing</h2>
+<p>After downloading the data, the requisite worksheets were cleaned and organized for analysis. All ‘Planning Area’ sections by ‘Age’ were combined. The process was applied to both ‘Population of Males by Age Groups and Planning Areas’ and ‘Population of Females by Age Groups and Planning Areas’ MS Excel worksheets.</p>
+<p><img src="images/Data in Excel.png" class="img-fluid"></p>
+</section>
+<section id="pivoting-the-worksheets-in-tableau" class="level2">
+<h2 class="anchored" data-anchor-id="pivoting-the-worksheets-in-tableau">1.3. Pivoting the worksheets in Tableau</h2>
+<p>For better analysis in Tableau, it is preferable to have data organized as long and lean rather than short and wide. Hence, the short and wide data structure in MS Excel worksheets were opened in Tableau, and all the five-year age bands were pivoted for long and lean data structure. This process is done individually for ‘Population of Males by Age Groups and Planning Areas’ and ‘Population of Females by Age Groups and Planning Areas’.</p>
+<p>The MS Excel worksheet is first loaded to Tableau.</p>
+<p><img src="images/Loading the dataset.png" class="img-fluid"></p>
+<p>Next, all five-year age bands are selected and pivoted to transform the data structure.</p>
+<p><img src="images/Data pivot in Tableau.png" class="img-fluid"></p>
+<p>Using ‘View Data’ option, the long and lean data – for both males and females – is downloaded as CSV files.</p>
+<p><img src="images/View Data.png" class="img-fluid"></p>
+<p><img src="images/Pivot data download.png" class="img-fluid"></p>
+<p>The column names retained in each MS Excel worksheets post pivoting were ‘Planning Area’, ‘Subzone’, ‘Age’ (for five-year age bands), ‘Gender’ (Male or Female, depending on the data worksheet), and ‘Population’ (representing the corresponding population count).</p>
+<p><img src="images/Data structure post pivot.png" class="img-fluid"></p>
+</section>
+</section>
+<section id="creating-the-tableau-dashboard" class="level1">
+<h1>2. Creating the Tableau Dashboard</h1>
+<section id="union-of-two-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="union-of-two-datasets">2.1. Union of two datasets</h2>
+<p>After loading the MS Excel worksheets (note: Male and Female population worksheets should be saved in the same MS Excel workbook), we use the ‘New Union’ option in Tableau to combine the ‘Population of Males by Age Groups and Planning Areas’ and ‘Population of Females by Age Groups and Planning Areas’. This gives us a combined long and lean data structure by Planning Area, Subzone, Age Groups, Sex, and Population (actuals).</p>
+<p><img src="images/Creating dataset union.png" class="img-fluid"></p>
+</section>
+<section id="creating-new-variables-for-33-panel-charts" class="level2">
+<h2 class="anchored" data-anchor-id="creating-new-variables-for-33-panel-charts">2.2. Creating new variables for 3*3 panel charts</h2>
+<p>To divide the Tableau worksheet into nine panels of 3 by 3 matrix, we created three calculated fields – Index, Column, and Row. The calculated field is created in the working Tableau sheet. Click on the arrow next to the Data field and select Create Calculated Field.</p>
+<p><img src="images/Creating calculated field.png" class="img-fluid"></p>
+<p>The formula for these calculated fields are used to derive the logic in the image below.</p>
+<p><img src="images/3x3 variables.png" class="img-fluid"> Such panelling helps to aesthetically divide nine planning areas in the worksheet and makes the trellis charts both beautiful and insightful.</p>
+</section>
+<section id="creating-new-variables-aggregating-the-female-and-male-population" class="level2">
+<h2 class="anchored" data-anchor-id="creating-new-variables-aggregating-the-female-and-male-population">2.3. Creating new variables aggregating the female and male population</h2>
+<p>For the left-side of the trellis chart, we represented the proportion of female population in respective planning areas and on the right-side, we represented the proportion of male population. To do this, we create two conditional calculated fields, one for each female and male.</p>
+<p><img src="images/Male Female variables.png" class="img-fluid"></p>
+</section>
+<section id="performing-table-calculations-for-proportions" class="level2">
+<h2 class="anchored" data-anchor-id="performing-table-calculations-for-proportions">2.4. Performing table calculations for proportions</h2>
+</section>
+<section id="enhancing-the-aesthetics" class="level2">
+<h2 class="anchored" data-anchor-id="enhancing-the-aesthetics">2.5. Enhancing the Aesthetics</h2>
+</section>
+<section id="creating-the-final-dashboard" class="level2">
+<h2 class="anchored" data-anchor-id="creating-the-final-dashboard">2.6. Creating the final dashboard</h2>
+<ol type="1">
+<li><p>The ‘Size’ of the dashboard is set to ‘Automatic’ from ‘Fixed’. This helps to adjust the dashboard layout to the viewing screen.</p></li>
+<li><p>The trellis panel chart worksheet is dragged to the dashboard from the ‘Sheets’ panel.</p></li>
+<li><p>From the ‘Objects’ panel, the ‘Text’ object is dragged below the trellis panel chart to include details. The details cover the description of age buckets for the analysis and the data source.</p></li>
+</ol>
+<p><img src="images/Dashboard Details Highlighted.png" class="img-fluid"></p>
+</section>
+</section>
+<section id="the-analysis-studying-the-age-sex-pyramid-for-the-nine-most-populous-planning-areas-in-the-central-area" class="level1">
+<h1>3. The Analysis: Studying the age-sex pyramid for the nine most populous planning areas in the Central Area</h1>
+<section id="choosing-the-planning-area" class="level2">
+<h2 class="anchored" data-anchor-id="choosing-the-planning-area"><strong>3.1. Choosing the planning area:</strong></h2>
+<p>The Central Area is the core city centre of Singapore. The area dynamic, vibrant, and the hub for global and financial businesses. The Urban Redevelopment Authority (URA) of Singapore suggests that the area is set to grow in terms of businesses and vibrancy by accommodating a wider diversity of uses, job offerings, and business opportunities for the future economy.</p>
+<p>Given the outlook provided by URA, it would be interesting to analyze the current population spread in the Central Area. For this purpose, we look at the proportion of females and males by age groups in the nine most populous planning areas in the Central Area - Tanglin, Bukit Timah, Downtown Core, Newton, Novena, Orchard, Outram, River Valley, and Rochor.</p>
+</section>
+<section id="data-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="data-analysis"><strong>3.2. Data analysis:</strong></h2>
+<p>Singapore’s Statistical department provides population figures by sex across five-year age bands starting from age 0 to age 85 and over. However, we combine these five-year age bands into different buckets. These buckets allow us to see the spread of dependent and working adults across the nine areas. See below the detailed note on the age-buckets –</p>
+<ol type="1">
+<li><p><strong>Young Dependents</strong> – Aged 0 to 14, enrolled in schools, and primarily dependent on their parents. Average spread of female young dependents is 14.3% and that of male young dependents is 14.6% across nine planning areas.</p></li>
+<li><p><strong>Young Work(ing) Group</strong> – Aged 15 to 29. The younger folks may have some side income while the older folks have completed their degrees and national service and joined the corporate sector. Average spread of female young work group is 15.6% and that of male young dependents is 13.8% across nine planning areas.</p></li>
+<li><p><strong>Prime Work(ing) Group</strong> – Aged 30 to 49, mostly married individuals that are now primary providers of the family and have the spirit to grow in their career. Average spread of female prime work group is 33.9% and that of male young dependents is 33% across nine planning areas.</p></li>
+<li><p><strong>Mature Work(ing) Group</strong> – Aged 50 to 69, mostly married individuals, have significant job or business experience and are seeking stability. Average spread of female young work group is 26.6% and that of male young dependents is 29.3% across nine planning areas.</p></li>
+<li><p><strong>Elderly</strong> – Aged 70 and above, mostly retired, maybe partially dependent on primary providers. Average spread of female elderly is 9.7% and that of male young dependents is 9.4% across nine planning areas.</p></li>
+</ol>
+</section>
+<section id="insights" class="level2">
+<h2 class="anchored" data-anchor-id="insights"><strong>3.3. Insights:</strong></h2>
+<p>The female and male distribution across age groups is largely similar across the nine planning groups. Nevertheless, we do see small differences in the distribution for some of the age groups. Few of them to note are –</p>
+<ol type="1">
+<li><p>While the average proportion of <strong>Young Dependents</strong> is around 14% for both females and males across nine regions, this <strong>proportion is only 8% and 7%, respectively, in Downtown Core</strong> area. This can likely be attributed to higher presence of DINK (double income no kids) families, unmarried individuals, and expatriates residing without families in this area.</p></li>
+<li><p>The <strong>proportion of Prime Work Group was lowest in Bukit Timah</strong> - 29% for both males and females. This may be attributed to relatively lower presence of businesses in this area and high rental property rates.</p></li>
+<li><p><strong>Downtown Core, Outram, and Rochor had comparatively higher proportion of female and male elderly population residing in these areas</strong> – around 12% to 15%. This can be attributed to highest number of residents being employed in these areas.</p>
+<div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://public.tableau.com/views/TakeHome_01/DBAge-SexPyramidbyPA?:language=en-US&amp;publish=yes&amp;:display_count=n&amp;:origin=viz_share_link"><img src="images/Dashboard 1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div></li>
+</ol>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
