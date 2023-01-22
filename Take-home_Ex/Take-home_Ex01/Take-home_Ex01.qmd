@@ -64,11 +64,62 @@ For the left-side of the trellis chart, we represented the proportion of female 
 
 ![](images/Male%20Female%20variables.png)
 
-## 2.4. Performing table calculations for proportions
+## 2.4. Creating Region variable for assigning the Planning Areas
 
-## 2.5. Enhancing the Aesthetics
+The planning areas are geographically distributed into Central Region (including Core Central and
+Other Central Area), East Region, North-East Region, North Region, and West Region. Based on geographic location, the Planning Areas are assigned their respective Region as follows --
 
-## 2.6. Creating the final dashboard
+IF (\[Planning Area\] = "Bishan" OR \[Planning Area\] = "Bukit Merah" OR \[Planning Area\] = "Geylang" OR \[Planning Area\] = "Kallang" OR \[Planning Area\] = "Marine Parade" OR \[Planning Area\] = "Museum" OR \[Planning Area\] = "Queenstown" OR \[Planning Area\] = "Simpang" OR \[Planning Area\] = "Singapore River" OR \[Planning Area\] = "Southern Islands" OR \[Planning Area\] = "Straits View" OR \[Planning Area\] = "Toa Payoh") THEN "Other C"
+
+ELSEIF (\[Planning Area\] = "Bukit Timah" OR \[Planning Area\] = "Downtown Core" OR \[Planning Area\] = "Marina East" OR \[Planning Area\] = "Marina South" OR \[Planning Area\] = "Newton" OR \[Planning Area\] = "Novena" OR \[Planning Area\] = "Orchard" OR \[Planning Area\] = "Outram" OR \[Planning Area\] = "River Valley" OR \[Planning Area\] = "Rochor" OR \[Planning Area\] = "Tanglin") THEN "Core C"
+
+ELSEIF (\[Planning Area\] = "Bedok" OR \[Planning Area\] = "Changi" OR \[Planning Area\] = "Changi Bay" OR \[Planning Area\] = "Pasir Ris" OR \[Planning Area\] = "Paya Lebar" OR \[Planning Area\] = "Tampines") THEN "E"
+
+ELSEIF (\[Planning Area\] = "Central Water Catchment" OR \[Planning Area\] = "Lim Chu Kang" OR \[Planning Area\] = "Mandai" OR \[Planning Area\] = "Sembawang" OR \[Planning Area\] = "Sungei Kadut" OR \[Planning Area\] = "Woodlands" OR \[Planning Area\] = "Yishun") THEN "N"
+
+ELSEIF (\[Planning Area\] = "Ang Mo Kio" OR \[Planning Area\] = "Hougang" OR \[Planning Area\] = "North-Eastern Islands" OR \[Planning Area\] = "Punggol" OR \[Planning Area\] = "Seletar"  OR
+\[Planning Area\] = "Sengkang" OR \[Planning Area\] =  "Serangoon") THEN "NE"
+
+ELSE "W"
+END
+
+*Core C - Core Central Region/Central Area, Other C - Other Central Region, N - North Region, E - East Region, NE - North East Region, W - West Region*
+
+## 2.5. Creating the Trellis Charts
+
+1.  **Filter Panel** - In the Filter Panel, we first drag the Region Pill and select 'Core C' option only. Next we drag the Planning Area pill. Edit the filter criteria as mentioned in the image below to select nine most populous Planning Areas in the Central Area.
+
+    ![](images/Filter%20panel.png)
+
+2.  **Columns and Rows Panel** - Drag Column variable (discreet), Females variable (continuous), and Males variable (continuous) in the column panel. Drag Row variable (discreet) and Age variable (discreet) in the row panel.
+
+    ![](images/Row%20Col%20pills.png)
+
+    Click on the arrow of Females pill in the columns panel, and transform the measure into Sum as shown below (repeat the same for the Males pill).
+
+    ![](images/Measure%20Sum.png)
+
+    Click on the arrow of SUM(Females) pill in the columns panel, and edit the table calculation as shown below to derive proportions of females across age groups for each area (repeat the same for the SUM(Males) pill).
+
+    ![](images/Percent%20of%20total.png)
+
+3.  **Marks Panel** - In the Marks panel, drag Age Groups to Color, and Planning Area and Index to Details. Next, click on Label in the Marks panel and enable 'Show Marks Label' to activate labels. Do this for All, SUM(Females), and SUM(Males).
+
+    ![](images/Marks%20panel.png)
+
+## 2.6. Enhancing the Aesthetics
+
+1.  **Grouping the five-year age-bands** - We grouped the five-year age bands as follows to condense the groupings to five main buckets. In Section 3.2., we cover the purpose and the definition of grouping the age bands.
+
+    ![](images/image-1067137922.png)
+
+2.  **Reversing the axis of the left-side chart** - We click on the Female axis in the worksheet and reverse the axis to achieve the trellis chart. See below the image for reversing the axis. Note, this is done only for the left-side chart.
+
+    ![](images/image-549595788.png)
+
+3.  **Miscellaneous Enhancements** - We assign a color palette in the Marks Panel to Age pill, edit the axes start and end points for better readability, eliminate extra grid lines and borders from the worksheet, enhance the title, label, and axes fonts for a clean and beautified trellis chart.
+
+## 2.7. Creating the final dashboard
 
 1.  The 'Size' of the dashboard is set to 'Automatic' from 'Fixed'. This helps to adjust the dashboard layout to the viewing screen.
 

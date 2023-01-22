@@ -18,9 +18,9 @@ website:
         - text: "In-class Exercise 1"
           href: "In-class_Ex/In-class_Ex01/In-class_Ex01.html"
           
-    - text: "Take Home Exercise"
+    - text: "Take-home Exercise"
       menu:
-        - text: "Take Home Exercise 1"
+        - text: "Take-home Exercise 1"
           href: "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html"
           
     right:
@@ -30,7 +30,7 @@ website:
 
 format:
   html:
-    theme: superhero
+    theme: united
     css: styles.css
     toc: true
 

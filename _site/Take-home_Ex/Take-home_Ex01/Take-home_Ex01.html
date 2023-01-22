@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Prachi Ashani">
-<meta name="dcterms.date" content="2023-01-22">
+<meta name="dcterms.date" content="2023-01-23">
 
 <title>ISSS608-VAA - Take Home Exercise 1</title>
 <style>
@@ -37,10 +37,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -109,12 +109,12 @@ ul.task-list li input[type="checkbox"] {
   </li>
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-take-home-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Take Home Exercise</span>
+ <span class="menu-text">Take-home Exercise</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercise">    
         <li>
     <a class="dropdown-item" href="../../Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html">
- <span class="dropdown-text">Take Home Exercise 1</span></a>
+ <span class="dropdown-text">Take-home Exercise 1</span></a>
   </li>  
     </ul>
   </li>
@@ -154,9 +154,10 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#union-of-two-datasets" id="toc-union-of-two-datasets" class="nav-link" data-scroll-target="#union-of-two-datasets">2.1. Union of two datasets</a></li>
   <li><a href="#creating-new-variables-for-33-panel-charts" id="toc-creating-new-variables-for-33-panel-charts" class="nav-link" data-scroll-target="#creating-new-variables-for-33-panel-charts">2.2. Creating new variables for 3*3 panel charts</a></li>
   <li><a href="#creating-new-variables-aggregating-the-female-and-male-population" id="toc-creating-new-variables-aggregating-the-female-and-male-population" class="nav-link" data-scroll-target="#creating-new-variables-aggregating-the-female-and-male-population">2.3. Creating new variables aggregating the female and male population</a></li>
-  <li><a href="#performing-table-calculations-for-proportions" id="toc-performing-table-calculations-for-proportions" class="nav-link" data-scroll-target="#performing-table-calculations-for-proportions">2.4. Performing table calculations for proportions</a></li>
-  <li><a href="#enhancing-the-aesthetics" id="toc-enhancing-the-aesthetics" class="nav-link" data-scroll-target="#enhancing-the-aesthetics">2.5. Enhancing the Aesthetics</a></li>
-  <li><a href="#creating-the-final-dashboard" id="toc-creating-the-final-dashboard" class="nav-link" data-scroll-target="#creating-the-final-dashboard">2.6. Creating the final dashboard</a></li>
+  <li><a href="#creating-region-variable-for-assigning-the-planning-areas" id="toc-creating-region-variable-for-assigning-the-planning-areas" class="nav-link" data-scroll-target="#creating-region-variable-for-assigning-the-planning-areas">2.4. Creating Region variable for assigning the Planning Areas</a></li>
+  <li><a href="#creating-the-trellis-charts" id="toc-creating-the-trellis-charts" class="nav-link" data-scroll-target="#creating-the-trellis-charts">2.5. Creating the Trellis Charts</a></li>
+  <li><a href="#enhancing-the-aesthetics" id="toc-enhancing-the-aesthetics" class="nav-link" data-scroll-target="#enhancing-the-aesthetics">2.6. Enhancing the Aesthetics</a></li>
+  <li><a href="#creating-the-final-dashboard" id="toc-creating-the-final-dashboard" class="nav-link" data-scroll-target="#creating-the-final-dashboard">2.7. Creating the final dashboard</a></li>
   </ul></li>
   <li><a href="#the-analysis-studying-the-age-sex-pyramid-for-the-nine-most-populous-planning-areas-in-the-central-area" id="toc-the-analysis-studying-the-age-sex-pyramid-for-the-nine-most-populous-planning-areas-in-the-central-area" class="nav-link" data-scroll-target="#the-analysis-studying-the-age-sex-pyramid-for-the-nine-most-populous-planning-areas-in-the-central-area">3. The Analysis: Studying the age-sex pyramid for the nine most populous planning areas in the Central Area</a>
   <ul class="collapse">
@@ -189,7 +190,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 22, 2023</p>
+      <p class="date">January 23, 2023</p>
     </div>
   </div>
   
@@ -248,14 +249,44 @@ ul.task-list li input[type="checkbox"] {
 <p>For the left-side of the trellis chart, we represented the proportion of female population in respective planning areas and on the right-side, we represented the proportion of male population. To do this, we create two conditional calculated fields, one for each female and male.</p>
 <p><img src="images/Male Female variables.png" class="img-fluid"></p>
 </section>
-<section id="performing-table-calculations-for-proportions" class="level2">
-<h2 class="anchored" data-anchor-id="performing-table-calculations-for-proportions">2.4. Performing table calculations for proportions</h2>
+<section id="creating-region-variable-for-assigning-the-planning-areas" class="level2">
+<h2 class="anchored" data-anchor-id="creating-region-variable-for-assigning-the-planning-areas">2.4. Creating Region variable for assigning the Planning Areas</h2>
+<p>The planning areas are geographically distributed into Central Region (including Core Central and Other Central Area), East Region, North-East Region, North Region, and West Region. Based on geographic location, the Planning Areas are assigned their respective Region as follows –</p>
+<p>IF ([Planning Area] = “Bishan” OR [Planning Area] = “Bukit Merah” OR [Planning Area] = “Geylang” OR [Planning Area] = “Kallang” OR [Planning Area] = “Marine Parade” OR [Planning Area] = “Museum” OR [Planning Area] = “Queenstown” OR [Planning Area] = “Simpang” OR [Planning Area] = “Singapore River” OR [Planning Area] = “Southern Islands” OR [Planning Area] = “Straits View” OR [Planning Area] = “Toa Payoh”) THEN “Other C”</p>
+<p>ELSEIF ([Planning Area] = “Bukit Timah” OR [Planning Area] = “Downtown Core” OR [Planning Area] = “Marina East” OR [Planning Area] = “Marina South” OR [Planning Area] = “Newton” OR [Planning Area] = “Novena” OR [Planning Area] = “Orchard” OR [Planning Area] = “Outram” OR [Planning Area] = “River Valley” OR [Planning Area] = “Rochor” OR [Planning Area] = “Tanglin”) THEN “Core C”</p>
+<p>ELSEIF ([Planning Area] = “Bedok” OR [Planning Area] = “Changi” OR [Planning Area] = “Changi Bay” OR [Planning Area] = “Pasir Ris” OR [Planning Area] = “Paya Lebar” OR [Planning Area] = “Tampines”) THEN “E”</p>
+<p>ELSEIF ([Planning Area] = “Central Water Catchment” OR [Planning Area] = “Lim Chu Kang” OR [Planning Area] = “Mandai” OR [Planning Area] = “Sembawang” OR [Planning Area] = “Sungei Kadut” OR [Planning Area] = “Woodlands” OR [Planning Area] = “Yishun”) THEN “N”</p>
+<p>ELSEIF ([Planning Area] = “Ang Mo Kio” OR [Planning Area] = “Hougang” OR [Planning Area] = “North-Eastern Islands” OR [Planning Area] = “Punggol” OR [Planning Area] = “Seletar”&nbsp; OR [Planning Area] = “Sengkang” OR [Planning Area] =&nbsp; “Serangoon”) THEN “NE”</p>
+<p>ELSE “W” END</p>
+<p><em>Core C - Core Central Region/Central Area, Other C - Other Central Region, N - North Region, E - East Region, NE - North East Region, W - West Region</em></p>
+</section>
+<section id="creating-the-trellis-charts" class="level2">
+<h2 class="anchored" data-anchor-id="creating-the-trellis-charts">2.5. Creating the Trellis Charts</h2>
+<ol type="1">
+<li><p><strong>Filter Panel</strong> - In the Filter Panel, we first drag the Region Pill and select ‘Core C’ option only. Next we drag the Planning Area pill. Edit the filter criteria as mentioned in the image below to select nine most populous Planning Areas in the Central Area.</p>
+<p><img src="images/Filter panel.png" class="img-fluid"></p></li>
+<li><p><strong>Columns and Rows Panel</strong> - Drag Column variable (discreet), Females variable (continuous), and Males variable (continuous) in the column panel. Drag Row variable (discreet) and Age variable (discreet) in the row panel.</p>
+<p><img src="images/Row Col pills.png" class="img-fluid"></p>
+<p>Click on the arrow of Females pill in the columns panel, and transform the measure into Sum as shown below (repeat the same for the Males pill).</p>
+<p><img src="images/Measure Sum.png" class="img-fluid"></p>
+<p>Click on the arrow of SUM(Females) pill in the columns panel, and edit the table calculation as shown below to derive proportions of females across age groups for each area (repeat the same for the SUM(Males) pill).</p>
+<p><img src="images/Percent of total.png" class="img-fluid"></p></li>
+<li><p><strong>Marks Panel</strong> - In the Marks panel, drag Age Groups to Color, and Planning Area and Index to Details. Next, click on Label in the Marks panel and enable ‘Show Marks Label’ to activate labels. Do this for All, SUM(Females), and SUM(Males).</p>
+<p><img src="images/Marks panel.png" class="img-fluid"></p></li>
+</ol>
 </section>
 <section id="enhancing-the-aesthetics" class="level2">
-<h2 class="anchored" data-anchor-id="enhancing-the-aesthetics">2.5. Enhancing the Aesthetics</h2>
+<h2 class="anchored" data-anchor-id="enhancing-the-aesthetics">2.6. Enhancing the Aesthetics</h2>
+<ol type="1">
+<li><p><strong>Grouping the five-year age-bands</strong> - We grouped the five-year age bands as follows to condense the groupings to five main buckets. In Section 3.2., we cover the purpose and the definition of grouping the age bands.</p>
+<p><img src="images/image-1067137922.png" class="img-fluid"></p></li>
+<li><p><strong>Reversing the axis of the left-side chart</strong> - We click on the Female axis in the worksheet and reverse the axis to achieve the trellis chart. See below the image for reversing the axis. Note, this is done only for the left-side chart.</p>
+<p><img src="images/image-549595788.png" class="img-fluid"></p></li>
+<li><p><strong>Miscellaneous Enhancements</strong> - We assign a color palette in the Marks Panel to Age pill, edit the axes start and end points for better readability, eliminate extra grid lines and borders from the worksheet, enhance the title, label, and axes fonts for a clean and beautified trellis chart.</p></li>
+</ol>
 </section>
 <section id="creating-the-final-dashboard" class="level2">
-<h2 class="anchored" data-anchor-id="creating-the-final-dashboard">2.6. Creating the final dashboard</h2>
+<h2 class="anchored" data-anchor-id="creating-the-final-dashboard">2.7. Creating the final dashboard</h2>
 <ol type="1">
 <li><p>The ‘Size’ of the dashboard is set to ‘Automatic’ from ‘Fixed’. This helps to adjust the dashboard layout to the viewing screen.</p></li>
 <li><p>The trellis panel chart worksheet is dragged to the dashboard from the ‘Sheets’ panel.</p></li>
