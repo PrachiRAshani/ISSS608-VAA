@@ -66,8 +66,7 @@ For the left-side of the trellis chart, we represented the proportion of female 
 
 ## 2.4. Creating Region variable for assigning the Planning Areas
 
-The planning areas are geographically distributed into Central Region (including Core Central and
-Other Central Area), East Region, North-East Region, North Region, and West Region. Based on geographic location, the Planning Areas are assigned their respective Region as follows --
+The planning areas are geographically distributed into Central Region (including Core Central and Other Central Area), East Region, North-East Region, North Region, and West Region. Based on geographic location, the Planning Areas are assigned their respective Region as follows --
 
 IF (\[Planning Area\] = "Bishan" OR \[Planning Area\] = "Bukit Merah" OR \[Planning Area\] = "Geylang" OR \[Planning Area\] = "Kallang" OR \[Planning Area\] = "Marine Parade" OR \[Planning Area\] = "Museum" OR \[Planning Area\] = "Queenstown" OR \[Planning Area\] = "Simpang" OR \[Planning Area\] = "Singapore River" OR \[Planning Area\] = "Southern Islands" OR \[Planning Area\] = "Straits View" OR \[Planning Area\] = "Toa Payoh") THEN "Other C"
 
@@ -77,11 +76,9 @@ ELSEIF (\[Planning Area\] = "Bedok" OR \[Planning Area\] = "Changi" OR \[Plannin
 
 ELSEIF (\[Planning Area\] = "Central Water Catchment" OR \[Planning Area\] = "Lim Chu Kang" OR \[Planning Area\] = "Mandai" OR \[Planning Area\] = "Sembawang" OR \[Planning Area\] = "Sungei Kadut" OR \[Planning Area\] = "Woodlands" OR \[Planning Area\] = "Yishun") THEN "N"
 
-ELSEIF (\[Planning Area\] = "Ang Mo Kio" OR \[Planning Area\] = "Hougang" OR \[Planning Area\] = "North-Eastern Islands" OR \[Planning Area\] = "Punggol" OR \[Planning Area\] = "Seletar"  OR
-\[Planning Area\] = "Sengkang" OR \[Planning Area\] =  "Serangoon") THEN "NE"
+ELSEIF (\[Planning Area\] = "Ang Mo Kio" OR \[Planning Area\] = "Hougang" OR \[Planning Area\] = "North-Eastern Islands" OR \[Planning Area\] = "Punggol" OR \[Planning Area\] = "Seletar"  OR \[Planning Area\] = "Sengkang" OR \[Planning Area\] =  "Serangoon") THEN "NE"
 
-ELSE "W"
-END
+ELSE "W" END
 
 *Core C - Core Central Region/Central Area, Other C - Other Central Region, N - North Region, E - East Region, NE - North East Region, W - West Region*
 
@@ -117,7 +114,11 @@ END
 
     ![](images/image-549595788.png)
 
-3.  **Miscellaneous Enhancements** - We assign a color palette in the Marks Panel to Age pill, edit the axes start and end points for better readability, eliminate extra grid lines and borders from the worksheet, enhance the title, label, and axes fonts for a clean and beautified trellis chart.
+3.  **Annotating the titles for each Planning Area chart** - To mark Planning Area as titles in each of the nine charts, we right click on each panel chart, select the Annotate option, and then select Area option. This offers a text box for annotating that can be used to mark the title for each trellis chart in the nine panels.
+
+    ![](images/image-43916096.png)
+
+4.  **Miscellaneous Enhancements** - We assign a color palette in the Marks Panel to Age pill, edit the axes start and end points for better readability, eliminate extra grid lines and borders from the worksheet, enhance the title, label, and axes fonts for a clean and beautified trellis chart.
 
 ## 2.7. Creating the final dashboard
 
@@ -131,13 +132,15 @@ END
 
 # 3. The Analysis: Studying the age-sex pyramid for the nine most populous planning areas in the Central Area
 
-## **3.1. Choosing the planning area:**
+## **3.1. Choosing the planning area**
 
-The Central Area is the core city centre of Singapore. The area dynamic, vibrant, and the hub for global and financial businesses. The Urban Redevelopment Authority (URA) of Singapore suggests that the area is set to grow in terms of businesses and vibrancy by accommodating a wider diversity of uses, job offerings, and business opportunities for the future economy.
+The Central Area is the core city centre of Singapore. The area dynamic, vibrant, and the hub for global and financial businesses. The Urban Redevelopment Authority (URA) of Singapore suggests that the area is set to grow in terms of businesses and vibrancy by accommodating a wider diversity of uses, job offerings, and business opportunities for the future economy.[^1]
+
+[^1]: "[Central Area - Regional Highlights](https://www.ura.gov.sg/Corporate/Planning/Master-Plan/Regional-Highlights/Central-Area)," Urban Redevelopment Authority
 
 Given the outlook provided by URA, it would be interesting to analyze the current population spread in the Central Area. For this purpose, we look at the proportion of females and males by age groups in the nine most populous planning areas in the Central Area - Tanglin, Bukit Timah, Downtown Core, Newton, Novena, Orchard, Outram, River Valley, and Rochor.
 
-## **3.2. Data analysis:**
+## **3.2. Data analysis**
 
 Singapore's Statistical department provides population figures by sex across five-year age bands starting from age 0 to age 85 and over. However, we combine these five-year age bands into different buckets. These buckets allow us to see the spread of dependent and working adults across the nine areas. See below the detailed note on the age-buckets --
 
@@ -151,18 +154,30 @@ Singapore's Statistical department provides population figures by sex across fiv
 
 5.  **Elderly** -- Aged 70 and above, mostly retired, maybe partially dependent on primary providers. Average spread of female elderly is 9.7% and that of male young dependents is 9.4% across nine planning areas.
 
-## **3.3. Insights:**
+## **3.3. Insights**
 
 The female and male distribution across age groups is largely similar across the nine planning groups. Nevertheless, we do see small differences in the distribution for some of the age groups. Few of them to note are --
 
-1.  While the average proportion of **Young Dependents** is around 14% for both females and males across nine regions, this **proportion is only 8% and 7%, respectively, in Downtown Core** area. This can likely be attributed to higher presence of DINK (double income no kids) families, unmarried individuals, and expatriates residing without families in this area.
+**Key Finding 01** **-**
 
-2.  The **proportion of Prime Work Group was lowest in Bukit Timah** - 29% for both males and females. This may be attributed to relatively lower presence of businesses in this area and high rental property rates.
+While the average proportion of **Young Dependents** is around 14% for both females and males across nine regions, this **proportion is only 8% and 7%, respectively, in Downtown Core** area. This can likely be attributed to higher presence younger workers[^2], DINK (double income no kids) families, unmarried individuals, and expatriates residing without families in this area.
 
-3.  **Downtown Core, Outram, and Rochor had comparatively higher proportion of female and male elderly population residing in these areas** -- around 12% to 15%. This can be attributed to highest number of residents being employed in these areas.
+[^2]: Grace Ho, "[Downtown Core draws largest share of S'pore resident workers: Population census](https://www.straitstimes.com/singapore/downtown-core-draws-largest-share-of-spore-resident-workers-population-census),"
+    The Straits Times, 18 June, 2021
 
-    <div>
+**Key Finding 02 -**
 
-    [![](images/Dashboard%201.png)](https://public.tableau.com/views/TakeHome_01/DBAge-SexPyramidbyPA?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link)
+The **proportion of Prime Work Group was lowest in Bukit Timah** - 29% for both males and females. This may be attributed to relatively lower presence of businesses in this area compared to other eight planning areas and high rental property rates.
 
-    </div>
+**Key Finding 03 -**
+
+**Downtown Core, Outram, and Rochor had comparatively higher proportion of female and male elderly population residing in these areas** -- around 12% to 15%. This can be attributed to highest number of residents being employed in these areas, especially from the elderly group.[^3]
+
+[^3]: Grace Ho, "[Downtown Core draws largest share of S'pore resident workers: Population census](https://www.straitstimes.com/singapore/downtown-core-draws-largest-share-of-spore-resident-workers-population-census),"
+    The Straits Times, 18 June, 2021
+
+<div>
+
+[![](images/Dashboard%201.png)](https://public.tableau.com/views/TakeHome_01/DBAge-SexPyramidbyPA?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link)
+
+</div>
