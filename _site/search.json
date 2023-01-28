@@ -21,6 +21,13 @@
     "text": "Getting started with Tableau\nIn this exercise, we use Tableau’s Superstore data for analysis and visualization\nSee below the dashboard of In-Class Exercise 1 -"
   },
   {
+    "objectID": "In-class_Ex/In-class_Ex03/In-class_Ex03.html",
+    "href": "In-class_Ex/In-class_Ex03/In-class_Ex03.html",
+    "title": "In-class Exercise 3",
+    "section": "",
+    "text": "update.packages(checkBuilt = TRUE, ask = FALSE)\n\nInstalling and loading R packages\nTwo packages will be installed and loaded. They are: tidyverse and ggiraph\n\npacman::p_load(ggiraph, tidyverse)\n\nImporting data\n\nexam_data <- read_csv(\"data/Exam_data.csv\")\n\n\nggplot(data=exam_data, #gives you a blank data frame\n       aes(x = MATHS)) + #aesthetic mapping refers to the data column or field you want to plot\n  geom_dotplot(dotsize = 0.5)\n\n\n\n\n\np <- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(\n    aes(tooltip = ID),\n    stackgroups = TRUE, \n    binwidth = 1, \n    method = \"histodot\") +\n  scale_y_continuous(NULL, \n                     breaks = NULL)\ngirafe(\n  ggobj = p,\n  width_svg = 6,\n  height_svg = 6*0.618\n)"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "ISSS608-VAA",
@@ -103,5 +110,33 @@
     "title": "Take Home Exercise 1",
     "section": "3.3. Insights",
     "text": "3.3. Insights\nThe female and male distribution across age groups is largely similar across the nine planning groups. Nevertheless, we do see small differences in the distribution for some of the age groups. Few of them to note are –\nKey Finding 01 -\nWhile the average proportion of Young Dependents is around 14% for both females and males across nine regions, this proportion is only 8% and 7%, respectively, in Downtown Core area. This can likely be attributed to higher presence younger workers2, DINK (double income no kids) families, unmarried individuals, and expatriates residing without families in this area.\nKey Finding 02 -\nThe proportion of Prime Work Group was lowest in Bukit Timah - 29% for both males and females. This may be attributed to relatively lower presence of businesses in this area compared to other eight planning areas and high rental property rates.\nKey Finding 03 -\nDowntown Core, Outram, and Rochor had comparatively higher proportion of female and male elderly population residing in these areas – around 12% to 15%. This can be attributed to highest number of residents being employed in these areas, especially from the elderly group.3"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html",
+    "title": "Take-home Exercise 2",
+    "section": "",
+    "text": "The objective of this exercise is to critique the age-sex population pyramid by nine planning areas trellis chart of one of our peers and offer enhancements in R Shiny by using visualization analytics and application best practices taught in lecture 1 and lecture 2."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#original-design",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#original-design",
+    "title": "Take-home Exercise 2",
+    "section": "1. Original Design",
+    "text": "1. Original Design\n\n\n\n\n\nThe trellis chart (butterfly bar chart) used for visualization is good for representing the sex distribution by age-groups in different planning areas.\n\n1.1. Clarity:\n\n1.1.1. Non-descriptive graph title:\nThe criteria for selecting the nine planning areas is unclear from the title. Also, the year of population age-sex pyramid analysis is unclear from the title.\n\n\n1.1.2. No age-band grouping:\nGrouping the 5-year age bands into 10-years or any other grouping would make the y-axis clean and more readable for the viewer.\n\n\n1.1.3. Missing title for age-bands on the y-axis:\nThe y-axis has no title that mentions that the axis represents age-bands for the population.\n\n\n1.1.4. No fixed scale:\nX-axis labels are missing, making it difficult for the viewer to know the figures for male and female population. Also, the x-axis scale across nine panels is not fixed. This makes comparison of information across nine planning regions challenging for the viewer.\n\n\n1.1.5. Missing legend:\nThe legend describing the colour of the bars on the left- and the right-side of the trellis chart is missing. The viewer thus has to assume that the pink bars represent female population and the blue bars represent the male population.\n\n\n1.1.6. No data source information:\nIncluding the data source information enhances the credibility of the trellis chart figures.\n\n\n\n1.2. Aesthetics:\n\n1.2.1. Charts in different sheets:\nThe trellis chart for each of the nine regions have been created in nine different sheets and then paneled together in the Tableau dashboard. This results in creation of y-axis nine times, reducing the dashboard white space for expanding the trellis charts.\n\n\n1.2.2. Missing bar labels:\nHaving labels for the bars enhances the readability for the viewer. Hence, including labels can be good practice, especially when there are many bars in the trellis charts.\n\n\n1.2.3. Enhanced age axis:\nCurrently, the labels for the age axis are generic (i.e. they are same as provided by the data source) and not enhanced for aesthetics. Editing the axis labels for better readability can beautify the trellis chart.\n\n\n1.2.4. Non-supportive grid lines:\nAs population labels are missing on the x-axis, the grid lines in the trellis charts are redundant as they provide not supportive information."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#proposed-design",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#proposed-design",
+    "title": "Take-home Exercise 2",
+    "section": "2. Proposed Design",
+    "text": "2. Proposed Design\n\n2.1. The sketch:\n\n\n2.2. Getting started:\n\n2.2.1. Installing the necessary packages:\nTo start using ggplot, ggplot2, and tidyverse packages for analysis and visualization, we first install the packages in R Studio.\n\ninstall.packages(\"ggplot2\", repos = \"http://cran.us.r-project.org\", lib = \"C:/R-4.2.2\")\n\npackage 'ggplot2' successfully unpacked and MD5 sums checked\n\nThe downloaded binary packages are in\n    C:\\Users\\prach\\AppData\\Local\\Temp\\RtmpohJo1Y\\downloaded_packages\n\ninstall.packages(\"tidyverse\", repos = \"http://cran.us.r-project.org\", lib = \"C:/R-4.2.2\")\n\npackage 'tidyverse' successfully unpacked and MD5 sums checked\n\nThe downloaded binary packages are in\n    C:\\Users\\prach\\AppData\\Local\\Temp\\RtmpohJo1Y\\downloaded_packages\n\nlibrary(ggplot2)\nlibrary(tidyverse)\n\n── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──\n✔ tibble  3.1.8      ✔ dplyr   1.0.10\n✔ tidyr   1.3.0      ✔ stringr 1.5.0 \n✔ readr   2.1.3      ✔ forcats 0.5.2 \n✔ purrr   1.0.1      \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\n\n\n\n\n2.2.2. Importing the data:\n\nPopulation_data <- read_csv(\"data/TH02_AgeSexPop.csv\")\n\nRows: 1980 Columns: 5\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (4): Sex, Planning Area, Age Group, Pop_Proportion\ndbl (1): Population\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\n\n\n\n2.3. Data wrangling:\n\n\n2.4. Final outcome:"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#the-learning",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#the-learning",
+    "title": "Take-home Exercise 2",
+    "section": "3. The learning",
+    "text": "3. The learning\nEvaluating my peer’s visualization task, helped me learn by putting myself in the viewer’s shoes. Small design enhancements can improve the clarity and the beauty of the charts and make the chart more informative. This exercise also helped me strengthen my skills in R by using the packages such as ggplot, ggplot2, and tidyverse. Learning these packages is imperative for me as these packages can help me become an efficient and an effective data analyzer and visualizer."
   }
 ]

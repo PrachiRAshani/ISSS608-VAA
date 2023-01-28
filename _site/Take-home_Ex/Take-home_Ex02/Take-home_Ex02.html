@@ -9,7 +9,7 @@
 <meta name="author" content="Prachi Ashani">
 <meta name="dcterms.date" content="2023-01-28">
 
-<title>ISSS608-VAA - Hands-on Exercise 1</title>
+<title>ISSS608-VAA - Take-home Exercise 2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -214,12 +214,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started">Getting Started</a>
+  <li><a href="#original-design" id="toc-original-design" class="nav-link active" data-scroll-target="#original-design">1. Original Design</a>
   <ul class="collapse">
-  <li><a href="#installing-and-launching-r-packages" id="toc-installing-and-launching-r-packages" class="nav-link" data-scroll-target="#installing-and-launching-r-packages">Installing and launching R packages</a></li>
-  <li><a href="#importing-the-data" id="toc-importing-the-data" class="nav-link" data-scroll-target="#importing-the-data">Importing the data</a></li>
+  <li><a href="#clarity" id="toc-clarity" class="nav-link" data-scroll-target="#clarity">1.1. Clarity:</a></li>
+  <li><a href="#aesthetics" id="toc-aesthetics" class="nav-link" data-scroll-target="#aesthetics">1.2. Aesthetics:</a></li>
   </ul></li>
-  <li><a href="#plotting-a-simple-bar-chart" id="toc-plotting-a-simple-bar-chart" class="nav-link" data-scroll-target="#plotting-a-simple-bar-chart">Plotting a simple bar chart</a></li>
+  <li><a href="#proposed-design" id="toc-proposed-design" class="nav-link" data-scroll-target="#proposed-design">2. Proposed Design</a>
+  <ul class="collapse">
+  <li><a href="#the-sketch" id="toc-the-sketch" class="nav-link" data-scroll-target="#the-sketch">2.1. The sketch:</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">2.2. Getting started:</a></li>
+  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">2.3. Data wrangling:</a></li>
+  <li><a href="#final-outcome" id="toc-final-outcome" class="nav-link" data-scroll-target="#final-outcome">2.4. Final outcome:</a></li>
+  </ul></li>
+  <li><a href="#the-learning" id="toc-the-learning" class="nav-link" data-scroll-target="#the-learning">3. The learning</a></li>
   </ul>
 </nav>
     </div>
@@ -228,7 +235,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Hands-on Exercise 1</h1>
+<h1 class="title">Take-home Exercise 2</h1>
 </div>
 
 
@@ -255,26 +262,111 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="getting-started" class="level1">
-<h1>Getting Started</h1>
-<section id="installing-and-launching-r-packages" class="level2">
-<h2 class="anchored" data-anchor-id="installing-and-launching-r-packages">Installing and launching R packages</h2>
-<p>The code chunk below uses p_load() of pacman package to check if tidyverse packages are installed in the computer. If they are, then they will be launched in R.</p>
+<p>The objective of this exercise is to critique the age-sex population pyramid by nine planning areas trellis chart of one of our peers and offer enhancements in R Shiny by using visualization analytics and application best practices taught in lecture 1 and lecture 2.</p>
+<section id="original-design" class="level2">
+<h2 class="anchored" data-anchor-id="original-design">1. Original Design</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://public.tableau.com/app/profile/ashley1342/viz/TakeHomeExercise01/Dashboard1?publish=yes"><img src="images/Picture1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<p>The trellis chart (butterfly bar chart) used for visualization is good for representing the sex distribution by age-groups in different planning areas.</p>
+<section id="clarity" class="level3">
+<h3 class="anchored" data-anchor-id="clarity">1.1. Clarity:</h3>
+<section id="non-descriptive-graph-title" class="level4">
+<h4 class="anchored" data-anchor-id="non-descriptive-graph-title">1.1.1. Non-descriptive graph title:</h4>
+<p>The criteria for selecting the nine planning areas is unclear from the title. Also, the year of population age-sex pyramid analysis is unclear from the title.</p>
+</section>
+<section id="no-age-band-grouping" class="level4">
+<h4 class="anchored" data-anchor-id="no-age-band-grouping">1.1.2. No age-band grouping:</h4>
+<p>Grouping the 5-year age bands into 10-years or any other grouping would make the y-axis clean and more readable for the viewer.</p>
+</section>
+<section id="missing-title-for-age-bands-on-the-y-axis" class="level4">
+<h4 class="anchored" data-anchor-id="missing-title-for-age-bands-on-the-y-axis">1.1.3. Missing title for age-bands on the y-axis:</h4>
+<p>The y-axis has no title that mentions that the axis represents age-bands for the population.</p>
+</section>
+<section id="no-fixed-scale" class="level4">
+<h4 class="anchored" data-anchor-id="no-fixed-scale">1.1.4. No fixed scale:</h4>
+<p>X-axis labels are missing, making it difficult for the viewer to know the figures for male and female population. Also, the x-axis scale across nine panels is not fixed. This makes comparison of information across nine planning regions challenging for the viewer.</p>
+</section>
+<section id="missing-legend" class="level4">
+<h4 class="anchored" data-anchor-id="missing-legend">1.1.5. Missing legend:</h4>
+<p>The legend describing the colour of the bars on the left- and the right-side of the trellis chart is missing. The viewer thus has to assume that the pink bars represent female population and the blue bars represent the male population.</p>
+</section>
+<section id="no-data-source-information" class="level4">
+<h4 class="anchored" data-anchor-id="no-data-source-information">1.1.6. No data source information:</h4>
+<p>Including the data source information enhances the credibility of the trellis chart figures.</p>
+</section>
+</section>
+<section id="aesthetics" class="level3">
+<h3 class="anchored" data-anchor-id="aesthetics">1.2. Aesthetics:</h3>
+<section id="charts-in-different-sheets" class="level4">
+<h4 class="anchored" data-anchor-id="charts-in-different-sheets">1.2.1. Charts in different sheets:</h4>
+<p>The trellis chart for each of the nine regions have been created in nine different sheets and then paneled together in the Tableau dashboard. This results in creation of y-axis nine times, reducing the dashboard white space for expanding the trellis charts.</p>
+</section>
+<section id="missing-bar-labels" class="level4">
+<h4 class="anchored" data-anchor-id="missing-bar-labels">1.2.2. Missing bar labels:</h4>
+<p>Having labels for the bars enhances the readability for the viewer. Hence, including labels can be good practice, especially when there are many bars in the trellis charts.</p>
+</section>
+<section id="enhanced-age-axis" class="level4">
+<h4 class="anchored" data-anchor-id="enhanced-age-axis">1.2.3. Enhanced age axis:</h4>
+<p>Currently, the labels for the age axis are generic (i.e.&nbsp;they are same as provided by the data source) and not enhanced for aesthetics. Editing the axis labels for better readability can beautify the trellis chart.</p>
+</section>
+<section id="non-supportive-grid-lines" class="level4">
+<h4 class="anchored" data-anchor-id="non-supportive-grid-lines">1.2.4. Non-supportive grid lines:</h4>
+<p>As population labels are missing on the x-axis, the grid lines in the trellis charts are redundant as they provide not supportive information.</p>
+</section>
+</section>
+</section>
+<section id="proposed-design" class="level2">
+<h2 class="anchored" data-anchor-id="proposed-design">2. Proposed Design</h2>
+<section id="the-sketch" class="level3">
+<h3 class="anchored" data-anchor-id="the-sketch">2.1. The sketch:</h3>
+</section>
+<section id="getting-started" class="level3">
+<h3 class="anchored" data-anchor-id="getting-started">2.2. Getting started:</h3>
+<section id="installing-the-necessary-packages" class="level4">
+<h4 class="anchored" data-anchor-id="installing-the-necessary-packages">2.2.1. Installing the necessary packages:</h4>
+<p>To start using ggplot, ggplot2, and tidyverse packages for analysis and visualization, we first install the packages in R Studio.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#package name with :: is used as the package has not been loaded in the r environment but you want to use the package functions for your project.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>, <span class="at">repos =</span> <span class="st">"http://cran.us.r-project.org"</span>, <span class="at">lib =</span> <span class="st">"C:/R-4.2.2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>package 'ggplot2' successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+    C:\Users\prach\AppData\Local\Temp\RtmpohJo1Y\downloaded_packages</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>, <span class="at">repos =</span> <span class="st">"http://cran.us.r-project.org"</span>, <span class="at">lib =</span> <span class="st">"C:/R-4.2.2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>package 'tidyverse' successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+    C:\Users\prach\AppData\Local\Temp\RtmpohJo1Y\downloaded_packages</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.3.0      ✔ stringr 1.5.0 
+✔ readr   2.1.3      ✔ forcats 0.5.2 
+✔ purrr   1.0.1      
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+</div>
 </div>
 </section>
-<section id="importing-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="importing-the-data">Importing the data</h2>
+<section id="importing-the-data" class="level4">
+<h4 class="anchored" data-anchor-id="importing-the-data">2.2.2. Importing the data:</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>exam_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Exam_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Population_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/TH02_AgeSexPop.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 322 Columns: 7
+<pre><code>Rows: 1980 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
-chr (4): ID, CLASS, GENDER, RACE
-dbl (3): ENGLISH, MATHS, SCIENCE
+chr (4): Sex, Planning Area, Age Group, Pop_Proportion
+dbl (1): Population
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
@@ -282,17 +374,16 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </section>
 </section>
-<section id="plotting-a-simple-bar-chart" class="level1">
-<h1>Plotting a simple bar chart</h1>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x =</span> RACE)) <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Hands-on_Ex01_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>```</p>
+<section id="data-wrangling" class="level3">
+<h3 class="anchored" data-anchor-id="data-wrangling">2.3. Data wrangling:</h3>
+</section>
+<section id="final-outcome" class="level3">
+<h3 class="anchored" data-anchor-id="final-outcome">2.4. Final outcome:</h3>
+</section>
+</section>
+<section id="the-learning" class="level2">
+<h2 class="anchored" data-anchor-id="the-learning">3. The learning</h2>
+<p>Evaluating my peer’s visualization task, helped me learn by putting myself in the viewer’s shoes. Small design enhancements can improve the clarity and the beauty of the charts and make the chart more informative. This exercise also helped me strengthen my skills in R by using the packages such as <strong>ggplot</strong>, <strong>ggplot2</strong>, and <strong>tidyverse</strong>. Learning these packages is imperative for me as these packages can help me become an efficient and an effective data analyzer and visualizer.</p>
 
 
 </section>
