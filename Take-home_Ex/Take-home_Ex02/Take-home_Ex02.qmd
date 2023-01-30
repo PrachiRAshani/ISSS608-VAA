@@ -60,20 +60,23 @@ As population labels are missing on the x-axis, the grid lines in the trellis ch
 
 ### 2.1. The sketch:
 
+The sketch is the design for the age-sex population pyramid for one of the chosen nine planning areas. The chart will be replicated and modified for the rest of the other eight planning areas. The sketch details the enhancements to the original chart design.
+
+![](images/Design%20Sketch_edit.png)
+
 ### 2.2. Getting started:
 
 #### 2.2.1. Installing the necessary packages:
 
-To start using ggplot, ggplot2, and tidyverse packages for analysis and visualization, we first install the packages in R Studio.
+To start using **ggplot2** and **tidyverse** packages for analysis and visualization, we load the libraries using the pacman package and p_load function in R Studio.
 
 ```{r}
-install.packages("ggplot2", repos = "http://cran.us.r-project.org", lib = "C:/R-4.2.2")
-install.packages("tidyverse", repos = "http://cran.us.r-project.org", lib = "C:/R-4.2.2")
-library(ggplot2)
-library(tidyverse)
+pacman::p_load(ggplot2, tidyverse)
 ```
 
 #### 2.2.2. Importing the data:
+
+Next, we import the Age-Sex Population Data of Singapore for data manipulation and creating the trellis chart for the nine planning areas.
 
 ```{r}
 Population_data <- read_csv("data/TH02_AgeSexPop.csv")
@@ -81,8 +84,100 @@ Population_data <- read_csv("data/TH02_AgeSexPop.csv")
 
 ### 2.3. Data wrangling:
 
+**Step 1 - Combining the age-bands**
+
+We regroup the data into ten-year age bands from the five-year age bands. We do this to minimize the level of details for the viewer. This helps to create a clean, condensed yet informational chart that is comparatively easier, than the detailed chart, for the viewer to comprehend.
+
+```{r}
+Population_data$Age_groups <- with(Population_data, 
+                                   dplyr::case_when(`Age Group` %in% c("0 - 4", "5 - 9") ~ '0 - 9',
+                                               `Age Group` %in% c("10 - 14", "15 - 19") ~ '10 - 19',
+                                               `Age Group` %in% c("20 - 24", "25 - 29") ~ '20 - 29',
+                                               `Age Group` %in% c("30 - 34", "35 - 39") ~ '30 - 39',
+                                               `Age Group` %in% c("40 - 44", "45 - 49") ~ '40 - 49',
+                                               `Age Group` %in% c("50 - 54", "55 - 59") ~ '50 - 59',
+                                               `Age Group` %in% c("60 - 64", "65 - 69") ~ '60 - 69',
+                                               `Age Group` %in% c("70 - 74", "75 - 79") ~ '70 - 79',
+                                               `Age Group` %in% c("80 - 84", "85 & Over") ~ '80+'))
+```
+
+**Step 2 - Selecting the planning areas**
+
+As per the problem statement, we need to select nine planning areas of Singapore and present the age-sex population pyramid for the user. For this exercise, we select the top nine most populous planning areas of Singapore in 2022.
+
+**Step 3 - Creating a data subset**
+
+Based on the chosen nine planning areas, we create a subset from the main dataset. Such a subset makes it easy to further wrangle and visualize the data using ggplot2 and tidyverse.
+
+```{r}
+data_PA <- Population_data %>%
+  group_by(`Planning Area`) %>%
+  summarise(sum_pop = sum(Population), .groups = 'drop') %>%
+  arrange(sum_pop,.by_group = TRUE) %>%
+  top_n(9)
+
+data_PA
+```
+
+```{r}
+data_top9 <- Population_data %>% filter(`Planning Area` %in% c("Choa Chu Kang", "Ang Mo Kio", "Yishun", "Sengkang", "Hougang", "Woodlands", "Tampines", "Jurong West","Bedok"))
+
+str(data_top9)
+```
+
 ### 2.4. Final outcome:
+
+We use ggplot2 attributes to visualize the data and modify them to meet our sketch design. This helps us to create enhanced version of the initial design.
+
+```{r}
+pp <- ggplot(data = data_top9, aes(x = Age_groups, y = Population, fill = Sex)) +
+  
+  geom_bar(data = data_top9 %>% filter(Sex == "Male"),
+           stat = "identity",
+           position = "identity") +
+  
+  geom_bar(data = data_top9 %>% filter(Sex == "Female"),
+           stat = "identity",
+           position = "identity",
+           mapping = aes(y = -(Population))) +
+  
+  
+  labs (x = "Age Group", y = "Population in 000s",  title = str_wrap("Age-Sex Pyramid of the 9 most populous planning areas in Singapore, June 2022", width = 90), caption = "Source: Department of Statistics, Singapore (SingStat)") + 
+
+  scale_y_continuous(breaks = seq(-15000,15000,3000), labels = c("15", "12", "09", "06", "03", "0", "03", "06", "09", "12", "15"))+
+  
+  scale_fill_manual(values = c("coral3", "darkslateblue"))+
+
+  coord_flip() +
+
+  theme_minimal () +
+
+  theme(plot.margin = margin(t=0.1, r=0.1, b=0.1, l=0.1),
+        plot.title = element_text(size = 10, face = 'bold', hjust = 0.5),
+        plot.caption = element_text(hjust = 0, face = 'italic'),
+        plot.caption.position = 'plot',
+        
+        panel.grid.major.x = element_line(colour = 'grey', linewidth = 0.3, linetype = "dashed"),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        
+        axis.line = element_line(color = 'grey'),
+        axis.title = element_text(size = 8),
+        axis.title.y = element_text(angle = 0, vjust = 1.03),
+        axis.text = element_text(size = 6),
+        axis.ticks.y = element_line(color = 'grey'),
+        axis.ticks.x = element_line('grey'),
+        
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 6)) +
+  
+  # creating a facet wrap for each region
+  facet_wrap(~`Planning Area`, ncol = 3) 
+
+pp
+```
 
 ## 3. The learning
 
-Evaluating my peer's visualization task, helped me learn by putting myself in the viewer's shoes. Small design enhancements can improve the clarity and the beauty of the charts and make the chart more informative. This exercise also helped me strengthen my skills in R by using the packages such as **ggplot**, **ggplot2**, and **tidyverse**. Learning these packages is imperative for me as these packages can help me become an efficient and an effective data analyzer and visualizer.
+Evaluating my peer's visualization task, helped me learn by putting myself in the viewer's shoes. Small design enhancements can improve the clarity and the beauty of the charts and make the chart more informative. This exercise also helped me strengthen my skills in R by using the packages such as **ggplot2** and **tidyverse**. Learning these packages is imperative for me as these packages can help me become an efficient and an effective data analyzer and visualizer.
