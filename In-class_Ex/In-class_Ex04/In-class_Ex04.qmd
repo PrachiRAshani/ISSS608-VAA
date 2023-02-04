@@ -14,7 +14,7 @@ editor: visual
 ## Importing the libraries
 
 ```{r}
-pacman::p_load(dplyr, ggiraph, ggplot2, ggthemes, ggrepel, gganimate, patchwork, hrbrthemes, plotly, DT, RColorBrewer, gridExtra, extrafont, tidyverse)
+pacman::p_load(dplyr, ggiraph, ggplot2, ggstats, ggstatsplot, ggthemes, ggrepel, gganimate, patchwork, hrbrthemes, plotly, DT, RColorBrewer, gridExtra, extrafont, performance, see, readxl, parameters, gtsummary, crosstalk, ggdist, tidyverse)
 ```
 
 ## Reading the dataset
@@ -23,8 +23,152 @@ pacman::p_load(dplyr, ggiraph, ggplot2, ggthemes, ggrepel, gganimate, patchwork,
 exam_data <- read_csv("data/Exam_data.csv")
 ```
 
-## Plotting the chart using plot_ly
+## Working with visual variable: plot_ly() method
 
 ```{r}
 plot_ly(data = exam_data, x = ~ENGLISH, y= ~MATHS, color = ~RACE)
+```
+
+## Creating an interactive scatter plot: ggplotly() method
+
+```{r}
+
+#interactive plot
+
+p <- ggplot (data = exam_data, 
+             aes(x = MATHS, y = ENGLISH)) +
+  geom_point(dotsize = 1) +
+  coord_cartesian(xlim = c(0,100),
+                  ylim = c(0,100))
+
+ggplotly(p)
+```
+
+```{r}
+
+#Static plot for comparison
+
+ggplot (data = exam_data, 
+             aes(x = MATHS, y = ENGLISH)) +
+  geom_point(dotsize = 1) +
+  coord_cartesian(xlim = c(0,100),
+                  ylim = c(0,100))
+```
+
+## Two-sample mean test: *ggbetweenstats()*
+
+```{r}
+ggbetweenstats(data = exam_data, x = GENDER, y = MATHS, type = "p", messages = FALSE)
+```
+
+## Significant Test of Correlation: *ggscatterstats()*
+
+```{r}
+ggscatterstats(
+  data = exam_data,
+  x = MATHS,
+  y = ENGLISH,
+  marginal = FALSE
+  )
+```
+
+## Importing Excel file: readxl methods
+
+```{r}
+car_resale <- read_xls("data/ToyotaCorolla.xls", "data")
+```
+
+## Multiple Regression Model using lm()
+
+```{r}
+model <- lm(Price ~ Age_08_04 + Mfg_Year + KM + 
+              Weight + Guarantee_Period, data = car_resale)
+model
+```
+
+## Model summary in a dataframe form
+
+```{r}
+tbl_regression(model, intercept = TRUE)
+```
+
+## Model Diagnostic: checking for multi-colinearity
+
+```{r}
+check_collinearity(model)
+```
+
+```{r}
+check_c <- check_collinearity(model)
+plot(check_c)
+```
+
+## Model Diagnostic: Check model for homogeneity of variances
+
+```{r}
+check_h <- check_heteroscedasticity(model)
+plot(check_h)
+```
+
+## Model Diagnostic: Complete check
+
+```{r}
+check_model(model)
+```
+
+## Visualising Regression Parameters: see methods
+
+```{r}
+plot(parameters(model))
+```
+
+## Visualising Regression Parameters: *ggcoefstats()* methods
+
+```{r}
+ggcoefstats(model, output = "plot")
+```
+
+```{r}
+exam_data <- read_csv("data/Exam_data.csv")
+```
+
+## Visualizing the uncertainty of point estimates: ggplot2 methods
+
+```{r}
+my_sum <- exam_data %>%
+  group_by(RACE) %>%
+  summarise(
+    n=n(),
+    mean=mean(MATHS),
+    sd=sd(MATHS)
+    ) %>%
+  mutate(se=sd/sqrt(n-1))
+
+my_sum
+```
+
+```{r}
+knitr::kable(head(my_sum), format = 'html')
+```
+
+## Visualizing the uncertainty of point estimates: ggplot2 methods
+
+```{r}
+ggplot(my_sum) +
+  geom_errorbar(
+    aes(x=RACE, 
+        ymin=mean-se, 
+        ymax=mean+se), 
+    width=0.2, 
+    colour="black", 
+    alpha=0.9, 
+    size=0.5) +
+  geom_point(aes
+           (x=RACE, 
+            y=mean), 
+           stat="identity", 
+           color="red",
+           size = 1.5,
+           alpha=1) +
+  ggtitle("Standard error of mean maths score by rac")
 ```
