@@ -72,6 +72,10 @@ To start using **ggplot2**, **ggiraph**, and **tidyverse** packages for analysis
 
 ```{r}
 pacman::p_load(dplyr, ggiraph, ggplot2, patchwork, ggthemes, hrbrthemes, ggrepel, RColorBrewer, gridExtra, extrafont, tidyverse)
+```
+
+```{r}
+#| eval: false 
 font_import()
 loadfonts(device = "win")
 ```
@@ -137,13 +141,13 @@ data_top9 <- data_top9 %>% mutate(tooltip_text = paste0("Population actuals ", d
 
 pp <- ggplot(data = data_top9, aes(x = Age_groups, y = Population, fill = Sex, )) +
   
-  geom_col_interactive(data = data_top9 %>% filter(Sex == "Male"),
+  geom_bar(data = data_top9 %>% filter(Sex == "Male"),
            stat = "identity", position = "identity") +
 
 #, aes(tooltip = tooltip_text, data_id = Age_groups)) 
                             
   
-  geom_col_interactive(data = data_top9 %>% filter(Sex == "Female"),
+  geom_bar(data = data_top9 %>% filter(Sex == "Female"),
            stat = "identity",
            position = "identity",
            mapping = aes(y = -(Population))) +
@@ -184,8 +188,10 @@ pp <- ggplot(data = data_top9, aes(x = Age_groups, y = Population, fill = Sex, )
   # creating a facet wrap for each region
   facet_wrap(~`Planning Area`, ncol = 3) 
 
-pp2 <- girafe(ggobj = pp)
-if(interactive()) print(pp2)
+pp
+
+#pp2 <- girafe(ggobj = pp)
+#if(interactive()) print(pp2)
 ```
 
 ## 3. The learning

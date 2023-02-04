@@ -343,587 +343,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4 class="anchored" data-anchor-id="installing-the-necessary-packages">2.2.1. Installing the necessary packages:</h4>
 <p>To start using <strong>ggplot2</strong>, <strong>ggiraph</strong>, and <strong>tidyverse</strong> packages for analysis and visualization, we load the libraries using the pacman package and p_load function in R Studio. We load other packages as well to support formatting of the ggplot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr, ggiraph, ggplot2, patchwork, ggthemes, hrbrthemes, ggrepel, RColorBrewer, gridExtra, extrafont, tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">font_import</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Importing fonts may take a few minutes, depending on the number of fonts and the speed of the system.
-Continue? [y/n] </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Exiting.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">loadfonts</span>(<span class="at">device =</span> <span class="st">"win"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Agency FB already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Algerian already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Arial Black already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Arial already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Arial Narrow already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Arial Rounded MT Bold already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Bahnschrift already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Baskerville Old Face already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Bauhaus 93 already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Bell MT already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Berlin Sans FB already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Berlin Sans FB Demi already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Bernard MT Condensed already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Blackadder ITC already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Bodoni MT already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Bodoni MT Black already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Bodoni MT Condensed already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Bodoni MT Poster Compressed already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Book Antiqua already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Bookman Old Style already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Bookshelf Symbol 7 already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Bradley Hand ITC already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Britannic Bold already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Broadway already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Brush Script MT already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Calibri already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Calibri Light already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Californian FB already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Calisto MT already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Cambria already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Candara already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Candara Light already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Castellar already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Centaur already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Century already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Century Gothic already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Century Schoolbook already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chiller already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Colonna MT already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Comic Sans MS already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Consolas already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Constantia already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Cooper Black already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Copperplate Gothic Bold already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Copperplate Gothic Light already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Corbel already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Corbel Light already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Courier New already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Curlz MT already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Dubai already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Dubai Light already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Dubai Medium already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Ebrima already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Edwardian Script ITC already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Elephant already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Engravers MT already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Eras Bold ITC already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Eras Demi ITC already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Eras Light ITC already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Eras Medium ITC already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Felix Titling already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Footlight MT Light already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Forte already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Franklin Gothic Book already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Franklin Gothic Demi already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Franklin Gothic Demi Cond already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Franklin Gothic Heavy already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Franklin Gothic Medium already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Franklin Gothic Medium Cond already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Freestyle Script already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>French Script MT already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Gabriola already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Gadugi already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Garamond already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Georgia already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Gigi already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Gill Sans Ultra Bold already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Gill Sans Ultra Bold Condensed already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Gill Sans MT already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Gill Sans MT Condensed already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Gill Sans MT Ext Condensed Bold already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Gloucester MT Extra Condensed already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Goudy Old Style already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Goudy Stout already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Haettenschweiler already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Harlow Solid Italic already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Harrington already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>High Tower Text already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>HoloLens MDL2 Assets already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Impact already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Imprint MT Shadow already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Informal Roman already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Ink Free already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Javanese Text already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Jokerman already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Juice ITC already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Kristen ITC already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Kunstler Script already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Wide Latin already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Leelawadee UI already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Leelawadee UI Semilight already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Lucida Bright already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Lucida Calligraphy already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Lucida Console already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Lucida Fax already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Lucida Handwriting already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Lucida Sans already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Lucida Sans Typewriter already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Lucida Sans Unicode already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Magneto already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Maiandra GD already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Malgun Gothic already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Malgun Gothic Semilight already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Marlett already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Matura MT Script Capitals already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Microsoft Himalaya already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Microsoft Yi Baiti already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Microsoft New Tai Lue already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Microsoft PhagsPa already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Microsoft Sans Serif already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Microsoft Tai Le already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Mistral already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Modern No. 20 already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Mongolian Baiti already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Monotype Corsiva already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>MS Outlook already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>MS Reference Sans Serif already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>MS Reference Specialty already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>MT Extra already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>MV Boli already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Myanmar Text already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Niagara Engraved already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Niagara Solid already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Nirmala UI already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Nirmala UI Semilight already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>OCR A Extended already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Old English Text MT already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Onyx already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Palace Script MT already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Palatino Linotype already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Papyrus already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Parchment already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Perpetua already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Perpetua Titling MT already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Playbill already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Poor Richard already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Pristina already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rage Italic already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Ravie already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rockwell already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rockwell Condensed already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rockwell Extra Bold already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Sans Serif Collection already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Script MT Bold already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Segoe Fluent Icons already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Segoe MDL2 Assets already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Segoe Print already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Segoe Script already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Segoe UI already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Segoe UI Light already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Segoe UI Semibold already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Segoe UI Semilight already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Segoe UI Black already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Segoe UI Historic already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Segoe UI Symbol already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Segoe UI Variable already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Showcard Gothic already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>SimSun-ExtB already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Sitka Text already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Snap ITC already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Stencil already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Sylfaen already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Symbol already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Tahoma already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Tempus Sans ITC already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Times New Roman already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Trebuchet MS already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Tw Cen MT already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Tw Cen MT Condensed already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Tw Cen MT Condensed Extra Bold already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Verdana already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Viner Hand ITC already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Vivaldi already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Vladimir Script already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Webdings already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Wingdings already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Wingdings 2 already registered with windowsFonts().</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Wingdings 3 already registered with windowsFonts().</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr, ggiraph, ggplot2, patchwork, ggthemes, hrbrthemes, ggrepel, RColorBrewer, gridExtra, extrafont, tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">font_import</span>()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">loadfonts</span>(<span class="at">device =</span> <span class="st">"win"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="importing-the-data" class="level4">
 <h4 class="anchored" data-anchor-id="importing-the-data">2.2.2. Importing the data:</h4>
 <p>Next, we import the Age-Sex Population Data of Singapore for data manipulation and creating the trellis chart for the nine planning areas.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb193"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb193-1"><a href="#cb193-1" aria-hidden="true" tabindex="-1"></a>Population_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/TH02_AgeSexPop.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Population_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/TH02_AgeSexPop.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 1980 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
@@ -942,31 +373,31 @@ dbl (1): Population
 <p><strong>Step 1 - Combining the age-bands</strong></p>
 <p>We regroup the data into ten-year age bands from the five-year age bands. We do this to minimize the level of details for the viewer. This helps to create a clean, condensed yet informational chart that is comparatively easier, than the detailed chart, for the viewer to comprehend.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb195"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb195-1"><a href="#cb195-1" aria-hidden="true" tabindex="-1"></a>Population_data<span class="sc">$</span>Age_groups <span class="ot">&lt;-</span> <span class="fu">with</span>(Population_data, </span>
-<span id="cb195-2"><a href="#cb195-2" aria-hidden="true" tabindex="-1"></a>                                   dplyr<span class="sc">::</span><span class="fu">case_when</span>(<span class="st">`</span><span class="at">Age Group</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"0 - 4"</span>, <span class="st">"5 - 9"</span>) <span class="sc">~</span> <span class="st">'0 - 9'</span>,</span>
-<span id="cb195-3"><a href="#cb195-3" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">`</span><span class="at">Age Group</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"10 - 14"</span>, <span class="st">"15 - 19"</span>) <span class="sc">~</span> <span class="st">'10 - 19'</span>,</span>
-<span id="cb195-4"><a href="#cb195-4" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">`</span><span class="at">Age Group</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"20 - 24"</span>, <span class="st">"25 - 29"</span>) <span class="sc">~</span> <span class="st">'20 - 29'</span>,</span>
-<span id="cb195-5"><a href="#cb195-5" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">`</span><span class="at">Age Group</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"30 - 34"</span>, <span class="st">"35 - 39"</span>) <span class="sc">~</span> <span class="st">'30 - 39'</span>,</span>
-<span id="cb195-6"><a href="#cb195-6" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">`</span><span class="at">Age Group</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"40 - 44"</span>, <span class="st">"45 - 49"</span>) <span class="sc">~</span> <span class="st">'40 - 49'</span>,</span>
-<span id="cb195-7"><a href="#cb195-7" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">`</span><span class="at">Age Group</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"50 - 54"</span>, <span class="st">"55 - 59"</span>) <span class="sc">~</span> <span class="st">'50 - 59'</span>,</span>
-<span id="cb195-8"><a href="#cb195-8" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">`</span><span class="at">Age Group</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"60 - 64"</span>, <span class="st">"65 - 69"</span>) <span class="sc">~</span> <span class="st">'60 - 69'</span>,</span>
-<span id="cb195-9"><a href="#cb195-9" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">`</span><span class="at">Age Group</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"70 - 74"</span>, <span class="st">"75 - 79"</span>) <span class="sc">~</span> <span class="st">'70 - 79'</span>,</span>
-<span id="cb195-10"><a href="#cb195-10" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">`</span><span class="at">Age Group</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"80 - 84"</span>, <span class="st">"85 &amp; Over"</span>) <span class="sc">~</span> <span class="st">'80+'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Population_data<span class="sc">$</span>Age_groups <span class="ot">&lt;-</span> <span class="fu">with</span>(Population_data, </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                                   dplyr<span class="sc">::</span><span class="fu">case_when</span>(<span class="st">`</span><span class="at">Age Group</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"0 - 4"</span>, <span class="st">"5 - 9"</span>) <span class="sc">~</span> <span class="st">'0 - 9'</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">`</span><span class="at">Age Group</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"10 - 14"</span>, <span class="st">"15 - 19"</span>) <span class="sc">~</span> <span class="st">'10 - 19'</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">`</span><span class="at">Age Group</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"20 - 24"</span>, <span class="st">"25 - 29"</span>) <span class="sc">~</span> <span class="st">'20 - 29'</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">`</span><span class="at">Age Group</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"30 - 34"</span>, <span class="st">"35 - 39"</span>) <span class="sc">~</span> <span class="st">'30 - 39'</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">`</span><span class="at">Age Group</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"40 - 44"</span>, <span class="st">"45 - 49"</span>) <span class="sc">~</span> <span class="st">'40 - 49'</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">`</span><span class="at">Age Group</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"50 - 54"</span>, <span class="st">"55 - 59"</span>) <span class="sc">~</span> <span class="st">'50 - 59'</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">`</span><span class="at">Age Group</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"60 - 64"</span>, <span class="st">"65 - 69"</span>) <span class="sc">~</span> <span class="st">'60 - 69'</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">`</span><span class="at">Age Group</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"70 - 74"</span>, <span class="st">"75 - 79"</span>) <span class="sc">~</span> <span class="st">'70 - 79'</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                                               <span class="st">`</span><span class="at">Age Group</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"80 - 84"</span>, <span class="st">"85 &amp; Over"</span>) <span class="sc">~</span> <span class="st">'80+'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Step 2 - Selecting the planning areas</strong></p>
 <p>As per the problem statement, we need to select nine planning areas of Singapore and present the age-sex population pyramid for the user. For this exercise, we select the top nine most populous planning areas of Singapore in 2022.</p>
 <p><strong>Step 3 - Creating a data subset</strong></p>
 <p>Based on the chosen nine planning areas, we create a subset from the main dataset. Such a subset makes it easy to further wrangle and visualize the data using ggplot2 and tidyverse.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb196"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb196-1"><a href="#cb196-1" aria-hidden="true" tabindex="-1"></a>data_PA <span class="ot">&lt;-</span> Population_data <span class="sc">%&gt;%</span></span>
-<span id="cb196-2"><a href="#cb196-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Planning Area</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb196-3"><a href="#cb196-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sum_pop =</span> <span class="fu">sum</span>(Population), <span class="at">.groups =</span> <span class="st">'drop'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb196-4"><a href="#cb196-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sum_pop,<span class="at">.by_group =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb196-5"><a href="#cb196-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data_PA <span class="ot">&lt;-</span> Population_data <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Planning Area</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sum_pop =</span> <span class="fu">sum</span>(Population), <span class="at">.groups =</span> <span class="st">'drop'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sum_pop,<span class="at">.by_group =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Selecting by sum_pop</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb198"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb198-1"><a href="#cb198-1" aria-hidden="true" tabindex="-1"></a>data_PA</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data_PA</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 2
   `Planning Area` sum_pop
@@ -983,9 +414,9 @@ dbl (1): Population
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb200"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb200-1"><a href="#cb200-1" aria-hidden="true" tabindex="-1"></a>data_top9 <span class="ot">&lt;-</span> Population_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="st">`</span><span class="at">Planning Area</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Choa Chu Kang"</span>, <span class="st">"Ang Mo Kio"</span>, <span class="st">"Yishun"</span>, <span class="st">"Sengkang"</span>, <span class="st">"Hougang"</span>, <span class="st">"Woodlands"</span>, <span class="st">"Tampines"</span>, <span class="st">"Jurong West"</span>,<span class="st">"Bedok"</span>))</span>
-<span id="cb200-2"><a href="#cb200-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb200-3"><a href="#cb200-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data_top9)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data_top9 <span class="ot">&lt;-</span> Population_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="st">`</span><span class="at">Planning Area</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Choa Chu Kang"</span>, <span class="st">"Ang Mo Kio"</span>, <span class="st">"Yishun"</span>, <span class="st">"Sengkang"</span>, <span class="st">"Hougang"</span>, <span class="st">"Woodlands"</span>, <span class="st">"Tampines"</span>, <span class="st">"Jurong West"</span>,<span class="st">"Bedok"</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data_top9)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>spc_tbl_ [324 × 6] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
  $ Sex           : chr [1:324] "Female" "Female" "Female" "Female" ...
@@ -1010,66 +441,63 @@ dbl (1): Population
 <h3 class="anchored" data-anchor-id="final-outcome">2.4. Final outcome:</h3>
 <p>We use ggplot2 attributes to visualize the data and modify them to meet our sketch design. This helps us to create enhanced version of the initial design.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb202"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb202-1"><a href="#cb202-1" aria-hidden="true" tabindex="-1"></a>data_top9 <span class="ot">&lt;-</span> data_top9 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">tooltip_text =</span> <span class="fu">paste0</span>(<span class="st">"Population actuals "</span>, data_top9<span class="sc">$</span>Population, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="st">"Population Proportion "</span>, data_top9<span class="sc">$</span>Pop_Proportion))</span>
-<span id="cb202-2"><a href="#cb202-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb202-3"><a href="#cb202-3" aria-hidden="true" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> data_top9, <span class="fu">aes</span>(<span class="at">x =</span> Age_groups, <span class="at">y =</span> Population, <span class="at">fill =</span> Sex, )) <span class="sc">+</span></span>
-<span id="cb202-4"><a href="#cb202-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb202-5"><a href="#cb202-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col_interactive</span>(<span class="at">data =</span> data_top9 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">"Male"</span>),</span>
-<span id="cb202-6"><a href="#cb202-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
-<span id="cb202-7"><a href="#cb202-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb202-8"><a href="#cb202-8" aria-hidden="true" tabindex="-1"></a><span class="co">#, aes(tooltip = tooltip_text, data_id = Age_groups)) </span></span>
-<span id="cb202-9"><a href="#cb202-9" aria-hidden="true" tabindex="-1"></a>                            </span>
-<span id="cb202-10"><a href="#cb202-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb202-11"><a href="#cb202-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col_interactive</span>(<span class="at">data =</span> data_top9 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">"Female"</span>),</span>
-<span id="cb202-12"><a href="#cb202-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">stat =</span> <span class="st">"identity"</span>,</span>
-<span id="cb202-13"><a href="#cb202-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"identity"</span>,</span>
-<span id="cb202-14"><a href="#cb202-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> <span class="sc">-</span>(Population))) <span class="sc">+</span></span>
-<span id="cb202-15"><a href="#cb202-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb202-16"><a href="#cb202-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb202-17"><a href="#cb202-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">x =</span> <span class="st">"Age Group"</span>, <span class="at">y =</span> <span class="st">"Population in 000s"</span>,  <span class="at">title =</span> <span class="fu">str_wrap</span>(<span class="st">"Age-Sex Pyramid of the 9 most populous planning areas in Singapore, June 2022"</span>, <span class="at">width =</span> <span class="dv">90</span>), <span class="at">caption =</span> <span class="st">"Source: Department of Statistics, Singapore (SingStat)"</span>) <span class="sc">+</span> </span>
-<span id="cb202-18"><a href="#cb202-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb202-19"><a href="#cb202-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">15000</span>,<span class="dv">15000</span>,<span class="dv">3000</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"15"</span>, <span class="st">"12"</span>, <span class="st">"09"</span>, <span class="st">"06"</span>, <span class="st">"03"</span>, <span class="st">"0"</span>, <span class="st">"03"</span>, <span class="st">"06"</span>, <span class="st">"09"</span>, <span class="st">"12"</span>, <span class="st">"15"</span>))<span class="sc">+</span></span>
-<span id="cb202-20"><a href="#cb202-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb202-21"><a href="#cb202-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"coral3"</span>, <span class="st">"darkslateblue"</span>))<span class="sc">+</span></span>
-<span id="cb202-22"><a href="#cb202-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb202-23"><a href="#cb202-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb202-24"><a href="#cb202-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb202-25"><a href="#cb202-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span> () <span class="sc">+</span></span>
-<span id="cb202-26"><a href="#cb202-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb202-27"><a href="#cb202-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"Georgia"</span>),</span>
-<span id="cb202-28"><a href="#cb202-28" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb202-29"><a href="#cb202-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t=</span><span class="dv">1</span>, <span class="at">r=</span><span class="dv">1</span>, <span class="at">b=</span><span class="dv">1</span>, <span class="at">l=</span><span class="dv">1</span>),</span>
-<span id="cb202-30"><a href="#cb202-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">'bold'</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb202-31"><a href="#cb202-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">face =</span> <span class="st">'italic'</span>),</span>
-<span id="cb202-32"><a href="#cb202-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.caption.position =</span> <span class="st">'plot'</span>,</span>
-<span id="cb202-33"><a href="#cb202-33" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb202-34"><a href="#cb202-34" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.x =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">'grey'</span>, <span class="at">linewidth =</span> <span class="fl">0.3</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>),</span>
-<span id="cb202-35"><a href="#cb202-35" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb202-36"><a href="#cb202-36" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb202-37"><a href="#cb202-37" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb202-38"><a href="#cb202-38" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb202-39"><a href="#cb202-39" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">'grey'</span>),</span>
-<span id="cb202-40"><a href="#cb202-40" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
-<span id="cb202-41"><a href="#cb202-41" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="fl">1.03</span>),</span>
-<span id="cb202-42"><a href="#cb202-42" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">6</span>),</span>
-<span id="cb202-43"><a href="#cb202-43" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">'grey'</span>),</span>
-<span id="cb202-44"><a href="#cb202-44" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_line</span>(<span class="st">'grey'</span>),</span>
-<span id="cb202-45"><a href="#cb202-45" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb202-46"><a href="#cb202-46" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
-<span id="cb202-47"><a href="#cb202-47" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">6</span>)) <span class="sc">+</span></span>
-<span id="cb202-48"><a href="#cb202-48" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb202-49"><a href="#cb202-49" aria-hidden="true" tabindex="-1"></a>  <span class="co"># creating a facet wrap for each region</span></span>
-<span id="cb202-50"><a href="#cb202-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="st">`</span><span class="at">Planning Area</span><span class="st">`</span>, <span class="at">ncol =</span> <span class="dv">3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in (function (mapping = NULL, data = NULL, position = "stack", ..., :
-Ignoring unknown parameters: `stat`</code></pre>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data_top9 <span class="ot">&lt;-</span> data_top9 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">tooltip_text =</span> <span class="fu">paste0</span>(<span class="st">"Population actuals "</span>, data_top9<span class="sc">$</span>Population, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="st">"Population Proportion "</span>, data_top9<span class="sc">$</span>Pop_Proportion))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> data_top9, <span class="fu">aes</span>(<span class="at">x =</span> Age_groups, <span class="at">y =</span> Population, <span class="at">fill =</span> Sex, )) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data =</span> data_top9 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">"Male"</span>),</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#, aes(tooltip = tooltip_text, data_id = Age_groups)) </span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                            </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data =</span> data_top9 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">"Female"</span>),</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">stat =</span> <span class="st">"identity"</span>,</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"identity"</span>,</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> <span class="sc">-</span>(Population))) <span class="sc">+</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">x =</span> <span class="st">"Age Group"</span>, <span class="at">y =</span> <span class="st">"Population in 000s"</span>,  <span class="at">title =</span> <span class="fu">str_wrap</span>(<span class="st">"Age-Sex Pyramid of the 9 most populous planning areas in Singapore, June 2022"</span>, <span class="at">width =</span> <span class="dv">90</span>), <span class="at">caption =</span> <span class="st">"Source: Department of Statistics, Singapore (SingStat)"</span>) <span class="sc">+</span> </span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">15000</span>,<span class="dv">15000</span>,<span class="dv">3000</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"15"</span>, <span class="st">"12"</span>, <span class="st">"09"</span>, <span class="st">"06"</span>, <span class="st">"03"</span>, <span class="st">"0"</span>, <span class="st">"03"</span>, <span class="st">"06"</span>, <span class="st">"09"</span>, <span class="st">"12"</span>, <span class="st">"15"</span>))<span class="sc">+</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"coral3"</span>, <span class="st">"darkslateblue"</span>))<span class="sc">+</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span> () <span class="sc">+</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"Georgia"</span>),</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t=</span><span class="dv">1</span>, <span class="at">r=</span><span class="dv">1</span>, <span class="at">b=</span><span class="dv">1</span>, <span class="at">l=</span><span class="dv">1</span>),</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">'bold'</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">face =</span> <span class="st">'italic'</span>),</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.caption.position =</span> <span class="st">'plot'</span>,</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.x =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">'grey'</span>, <span class="at">linewidth =</span> <span class="fl">0.3</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>),</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">'grey'</span>),</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="fl">1.03</span>),</span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">6</span>),</span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">'grey'</span>),</span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_line</span>(<span class="st">'grey'</span>),</span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">6</span>)) <span class="sc">+</span></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>  <span class="co"># creating a facet wrap for each region</span></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="st">`</span><span class="at">Planning Area</span><span class="st">`</span>, <span class="at">ncol =</span> <span class="dv">3</span>) </span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>pp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Take-home_Ex02_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in (function (mapping = NULL, data = NULL, position = "stack", ..., :
-Ignoring unknown parameters: `stat`</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb205"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb205-1"><a href="#cb205-1" aria-hidden="true" tabindex="-1"></a>pp2 <span class="ot">&lt;-</span> <span class="fu">girafe</span>(<span class="at">ggobj =</span> pp)</span>
-<span id="cb205-2"><a href="#cb205-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">interactive</span>()) <span class="fu">print</span>(pp2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#pp2 &lt;- girafe(ggobj = pp)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#if(interactive()) print(pp2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
