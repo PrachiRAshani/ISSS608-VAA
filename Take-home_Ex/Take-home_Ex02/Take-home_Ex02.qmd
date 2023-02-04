@@ -4,7 +4,7 @@ author: "Prachi Ashani"
 date: "`r Sys.Date()`"
 ---
 
-The objective of this exercise is to critique the age-sex population pyramid by nine planning areas trellis chart of one of our peers and offer enhancements in R Shiny by using visualization analytics and application best practices taught in lecture 1 and lecture 2.
+The objective of this exercise is to critique the age-sex population pyramid by nine planning areas trellis chart of one of our peers and offer enhancements in R Studio by using visualization analytics and application best practices taught in lecture 1 and lecture 2.
 
 ## 1. Original Design
 
@@ -68,10 +68,12 @@ The sketch is the design for the age-sex population pyramid for one of the chose
 
 #### 2.2.1. Installing the necessary packages:
 
-To start using **ggplot2** and **tidyverse** packages for analysis and visualization, we load the libraries using the pacman package and p_load function in R Studio.
+To start using **ggplot2**, **ggiraph**, and **tidyverse** packages for analysis and visualization, we load the libraries using the pacman package and p_load function in R Studio. We load other packages as well to support formatting of the ggplot.
 
 ```{r}
-pacman::p_load(ggplot2, tidyverse)
+pacman::p_load(dplyr, ggiraph, ggplot2, patchwork, ggthemes, hrbrthemes, ggrepel, RColorBrewer, gridExtra, extrafont, tidyverse)
+font_import()
+loadfonts(device = "win")
 ```
 
 #### 2.2.2. Importing the data:
@@ -130,13 +132,18 @@ str(data_top9)
 We use ggplot2 attributes to visualize the data and modify them to meet our sketch design. This helps us to create enhanced version of the initial design.
 
 ```{r}
-pp <- ggplot(data = data_top9, aes(x = Age_groups, y = Population, fill = Sex)) +
+
+data_top9 <- data_top9 %>% mutate(tooltip_text = paste0("Population actuals ", data_top9$Population, "\n", "Population Proportion ", data_top9$Pop_Proportion))
+
+pp <- ggplot(data = data_top9, aes(x = Age_groups, y = Population, fill = Sex, )) +
   
-  geom_bar(data = data_top9 %>% filter(Sex == "Male"),
-           stat = "identity",
-           position = "identity") +
+  geom_col_interactive(data = data_top9 %>% filter(Sex == "Male"),
+           stat = "identity", position = "identity") +
+
+#, aes(tooltip = tooltip_text, data_id = Age_groups)) 
+                            
   
-  geom_bar(data = data_top9 %>% filter(Sex == "Female"),
+  geom_col_interactive(data = data_top9 %>% filter(Sex == "Female"),
            stat = "identity",
            position = "identity",
            mapping = aes(y = -(Population))) +
@@ -152,7 +159,9 @@ pp <- ggplot(data = data_top9, aes(x = Age_groups, y = Population, fill = Sex)) 
 
   theme_minimal () +
 
-  theme(plot.margin = margin(t=0.1, r=0.1, b=0.1, l=0.1),
+  theme(text = element_text(family = "Georgia"),
+    
+        plot.margin = margin(t=1, r=1, b=1, l=1),
         plot.title = element_text(size = 10, face = 'bold', hjust = 0.5),
         plot.caption = element_text(hjust = 0, face = 'italic'),
         plot.caption.position = 'plot',
@@ -175,7 +184,8 @@ pp <- ggplot(data = data_top9, aes(x = Age_groups, y = Population, fill = Sex)) 
   # creating a facet wrap for each region
   facet_wrap(~`Planning Area`, ncol = 3) 
 
-pp
+pp2 <- girafe(ggobj = pp)
+if(interactive()) print(pp2)
 ```
 
 ## 3. The learning

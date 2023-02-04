@@ -1,0 +1,24 @@
+---
+title: "Hands-on Exercise 4"
+author: "Prachi Ashani"
+date: 04 February 2023
+date-modified: "`r Sys.Date()`"
+execute: 
+  echo: true #to view the code chunk
+  eval: true #to view the execution
+  warning: false #to hide the warnings from R
+format: html
+editor: visual
+---
+
+## Importing the libraries
+
+```{r}
+pacman::p_load(dplyr, ggiraph, ggplot2, ggthemes, ggrepel, gganimate, patchwork, hrbrthemes, plotly, DT, RColorBrewer, gridExtra, extrafont, tidyverse)
+```
+
+## Reading the dataset
+
+```{r}
+exam_data <- read_csv("data/Exam_data.csv")
+```
