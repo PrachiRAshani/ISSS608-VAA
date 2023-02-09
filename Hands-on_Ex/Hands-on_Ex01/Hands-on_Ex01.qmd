@@ -1,7 +1,14 @@
 ---
-title: "Hands-on Exercise 1"
+title: "Hands-on Exercise 1 - Programming Elegant DataVis with ggplot2"
 author: "Prachi Ashani"
-date: "`r Sys.Date()`"
+date: 09 February 2023
+date-modified: "`r Sys.Date()`"
+execute: 
+  echo: true #to view the code chunk
+  eval: true #to view the execution
+  warning: false #to hide the warnings from R
+format: html
+editor: visual
 ---
 
 # Getting Started
@@ -14,7 +21,6 @@ The code chunk below uses p_load() of pacman package to check if tidyverse packa
 pacman::p_load(tidyverse)
 #package name with :: is used as the package has not been loaded in the r environment but you want to use the package functions for your project.
 ```
-
 
 ## Importing the data
 

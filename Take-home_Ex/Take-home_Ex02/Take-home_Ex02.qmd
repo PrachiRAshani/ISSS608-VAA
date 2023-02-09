@@ -1,5 +1,5 @@
 ---
-title: "Take-home Exercise 2"
+title: "Take Home Exercise 2"
 author: "Prachi Ashani"
 date: "`r Sys.Date()`"
 ---
