@@ -284,7 +284,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">February 9, 2023</p>
+      <p class="date-modified">February 10, 2023</p>
     </div>
   </div>
     
@@ -369,7 +369,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <section id="working-with-ggtheme-package" class="level3">
 <h3 class="anchored" data-anchor-id="working-with-ggtheme-package">Working with ggtheme package</h3>
-<p>ggthemes provides <a href="https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/">'ggplot2' themes</a> that replicate the look of plots by Edward Tufte, Stephen Few, <a href="https://fivethirtyeight.com/">Fivethirtyeight</a>, <a href="https://www.economist.com/graphic-detail">The Economist</a>, 'Stata', 'Excel', and <a href="https://www.pinterest.com/wsjgraphics/wsj-graphics/">The Wall Street Journal</a>, among others.</p>
+<p>ggthemes provides <a href="https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/">‘ggplot2’ themes</a> that replicate the look of plots by Edward Tufte, Stephen Few, <a href="https://fivethirtyeight.com/">Fivethirtyeight</a>, <a href="https://www.economist.com/graphic-detail">The Economist</a>, ‘Stata’, ‘Excel’, and <a href="https://www.pinterest.com/wsjgraphics/wsj-graphics/">The Wall Street Journal</a>, among others.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data, <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">boundary =</span> <span class="dv">100</span>, <span class="at">color =</span> <span class="st">"grey25"</span>, <span class="at">fill =</span> <span class="st">"grey90"</span>) <span class="sc">+</span></span>
@@ -431,7 +431,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <section id="creating-composite-graphics-pathwork-methods" class="level3">
 <h3 class="anchored" data-anchor-id="creating-composite-graphics-pathwork-methods">Creating Composite Graphics: pathwork methods</h3>
-<p>It is not unusual that somtimes multiple graphs are required to tell a compelling visual story. There are several ggplot2 extensions that provide functions to compose figure with multiple graphs. In this section, we use <a href="https://patchwork.data-imaginist.com/index.html"><strong>patchwork</strong></a>. Patchwork package has a very simple syntax where we can create layouts easily. Here's the general syntax that combines:</p>
+<p>It is not unusual that somtimes multiple graphs are required to tell a compelling visual story. There are several ggplot2 extensions that provide functions to compose figure with multiple graphs. In this section, we use <a href="https://patchwork.data-imaginist.com/index.html"><strong>patchwork</strong></a>. Patchwork package has a very simple syntax where we can create layouts easily. Here’s the general syntax that combines:</p>
 <ul>
 <li><p>Two-Column Layout using the Plus Sign +.</p></li>
 <li><p>Parenthesis () to create a subplot group.</p></li>

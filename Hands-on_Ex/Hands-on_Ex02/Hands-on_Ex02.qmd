@@ -80,7 +80,7 @@ ggplot(data = exam_data, aes(x = MATHS)) +
 
 ### Working with ggtheme package
 
-ggthemes provides [\'ggplot2\' themes](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/) that replicate the look of plots by Edward Tufte, Stephen Few, [Fivethirtyeight](https://fivethirtyeight.com/), [The Economist](https://www.economist.com/graphic-detail), \'Stata\', \'Excel\', and [The Wall Street Journal](https://www.pinterest.com/wsjgraphics/wsj-graphics/), among others.
+ggthemes provides ['ggplot2' themes](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/) that replicate the look of plots by Edward Tufte, Stephen Few, [Fivethirtyeight](https://fivethirtyeight.com/), [The Economist](https://www.economist.com/graphic-detail), 'Stata', 'Excel', and [The Wall Street Journal](https://www.pinterest.com/wsjgraphics/wsj-graphics/), among others.
 
 ```{r}
 ggplot(data = exam_data, aes(x = MATHS)) +
@@ -139,7 +139,7 @@ p3 <- ggplot(data = exam_data, aes(x = MATHS, y = ENGLISH)) +
 
 ### Creating Composite Graphics: pathwork methods
 
-It is not unusual that somtimes multiple graphs are required to tell a compelling visual story. There are several ggplot2 extensions that provide functions to compose figure with multiple graphs. In this section, we use [**patchwork**](https://patchwork.data-imaginist.com/index.html). Patchwork package has a very simple syntax where we can create layouts easily. Here\'s the general syntax that combines:
+It is not unusual that somtimes multiple graphs are required to tell a compelling visual story. There are several ggplot2 extensions that provide functions to compose figure with multiple graphs. In this section, we use [**patchwork**](https://patchwork.data-imaginist.com/index.html). Patchwork package has a very simple syntax where we can create layouts easily. Here's the general syntax that combines:
 
 -   Two-Column Layout using the Plus Sign +.
 

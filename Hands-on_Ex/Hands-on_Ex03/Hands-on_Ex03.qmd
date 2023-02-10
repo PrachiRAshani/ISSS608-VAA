@@ -53,7 +53,7 @@ p <- ggplot(data=exam_data, aes(x = MATHS)) +
 girafe(ggobj = p, width_svg = 6, height_svg = 6*0.618)
 ```
 
-Interactivity: By hovering the mouse pointer on an data point of interest, the student\'s ID will be displayed.
+Interactivity: By hovering the mouse pointer on an data point of interest, the student's ID will be displayed.
 
 ### Comparing ggplot2 and ggiraph codes
 
@@ -394,14 +394,13 @@ subplot(ggplotly(p1),
 
 ## Interactive Data Visualisation - crosstalk methods!
 
-[Crosstalk](https://rstudio.github.io/crosstalk/) is an add-on to the htmlwidgets package. It extends html widgets with a set of
-classes, functions, and conventions for implementing cross-widget interactions (currently, linked brushing and filtering).
+[Crosstalk](https://rstudio.github.io/crosstalk/) is an add-on to the htmlwidgets package. It extends html widgets with a set of classes, functions, and conventions for implementing cross-widget interactions (currently, linked brushing and filtering).
 
 ### Interactive Data Table: DT package
 
 -   A wrapper of the JavaScript Library [DataTables](https://datatables.net/)
 
--   Data objects in R can be rendered as HTML tables using the JavaScript library \'DataTables\' (typically via R Markdown or Shiny).
+-   Data objects in R can be rendered as HTML tables using the JavaScript library 'DataTables' (typically via R Markdown or Shiny).
 
 ```{r}
 DT::datatable(exam_data, class= "compact")
@@ -446,7 +445,7 @@ Add the following packages in the packages list:
 
 -   [**gganimate**](https://gganimate.com/): An ggplot extension for creating animated statistical graphs.
 
--   [**gifski**](https://cran.r-project.org/web/packages/gifski/) converts video frames to GIF animations using pngquant\'s fancy features for efficient cross-frame palettes and temporal dithering. It produces animated GIFs that use thousands of colors per frame.
+-   [**gifski**](https://cran.r-project.org/web/packages/gifski/) converts video frames to GIF animations using pngquant's fancy features for efficient cross-frame palettes and temporal dithering. It produces animated GIFs that use thousands of colors per frame.
 
 -   [**gapminder**](https://cran.r-project.org/web/packages/gapminder/): An excerpt of the data available at Gapminder.org. We just want to use its *country_colors* scheme.
 
