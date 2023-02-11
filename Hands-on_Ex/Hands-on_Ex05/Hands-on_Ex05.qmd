@@ -20,7 +20,7 @@ Ternary plots are a way of displaying the distribution and variability of three-
 ## Installing and launching R packages
 
 ```{r}
-pacman::p_load(ggtern, plotly, tidyverse)
+pacman::p_load(ggtern, plotly, corrplot, tidyverse)
 ```
 
 ## Data Preparation
@@ -116,7 +116,7 @@ plot_ly(
 
 Correlation coefficient is a popular statistic that use to measure the type and strength of the relationship between two variables. The values of a correlation coefficient ranges between -1.0 and 1.0. A correlation coefficient of 1 shows a perfect linear relationship between the two variables, while a -1.0 shows a perfect inverse relationship between the two variables. A correlation coefficient of 0.0 shows no linear relationship between the two variables.
 
-When multivariate data are used, the correlation coefficeints of the pair comparisons are displayed in a table form known as correlation matrix or scatterplot matrix.
+When multivariate data are used, the correlation coefficients of the pair comparisons are displayed in a table form known as correlation matrix or scatterplot matrix.
 
 There are three broad reasons for computing a correlation matrix.
 
@@ -139,7 +139,7 @@ In this exercise, we plot data for visualizing correlation matrix with R. First,
 Install and launch **corrplot**, **ggpubr**, **plotly** and **tidyverse** in RStudio.
 
 ```{r}
-pacman::p_load(corrplot, tidyverse, ggstatsplot)
+pacman::p_load(tidyverse, ggstatsplot)
 ```
 
 ## Importing and Preparing the Data Set
@@ -221,16 +221,16 @@ On top that, some R package like ggstatsplot package also provides functions for
 On of the advantage of using *ggcorrmat()* over many other methods to visualise a correlation matrix is it's ability to provide a comprehensive and yet professional statistical report as shown in the figure below.
 
 ```{r}
-# ggcorrmat(
-#   data = wine, 
+# ggstatsplot::ggcorrmat(
+#   data = wine,
 #   cor.vars = 1:11)
 ```
 
 ```{r}
 # ggstatsplot::ggcorrmat(
-#   data = wine, 
+#   data = wine,
 #   cor.vars = 1:11,
-#   ggcorrplot.args = list(outline.color = "black", 
+#   ggcorrplot.args = list(outline.color = "black",
 #                          hc.order = TRUE,
 #                          tl.cex = 10),
 #   title    = "Correlogram for wine dataset",
@@ -256,6 +256,9 @@ ggplot.component = list(
 Since ggstasplot is an extension of ggplot2, it also supports faceting. However the feature is not available in *ggcorrmat()* but in the [*grouped_ggcorrmat()*](https://indrajeetpatil.github.io/ggstatsplot/reference/grouped_ggcorrmat.html) of **ggstatsplot**.
 
 ```{r}
+#| fig.height = 10,
+#| fig.width = 10
+
 grouped_ggcorrmat(
   data = wine,
   cor.vars = 1:11,
@@ -576,19 +579,19 @@ heatmaply(percentize(wh_matrix[, -c(1, 2, 4, 5)]))
 
 **heatmaply** supports a variety of hierarchical clustering algorithm. The main arguments provided are:
 
-*distfun*: function used to compute the distance (dissimilarity) between both rows and columns. Defaults to dist. The options \"pearson\", \"spearman\" and \"kendall\" can be used to use correlation-based clustering, which uses as.dist(1 - cor(t(x))) as the distance metric (using the specified correlation method).
+*distfun*: function used to compute the distance (dissimilarity) between both rows and columns. Defaults to dist. The options "pearson", "spearman" and "kendall" can be used to use correlation-based clustering, which uses as.dist(1 - cor(t(x))) as the distance metric (using the specified correlation method).
 
 -   *hclustfun*: function used to compute the hierarchical clustering when *Rowv* or *Colv* are not dendrograms. Defaults to *hclust*.
 
--   *dist_method* default is NULL, which results in \"euclidean\" to be used. It can accept alternative character strings indicating the method to be passed to distfun. By default *distfun* is \"dist\"\" hence this can be one of \"euclidean\", \"maximum\", \"manhattan\", \"canberra\", \"binary\" or \"minkowski\".
+-   *dist_method* default is NULL, which results in "euclidean" to be used. It can accept alternative character strings indicating the method to be passed to distfun. By default *distfun* is "dist"" hence this can be one of "euclidean", "maximum", "manhattan", "canberra", "binary" or "minkowski".
 
--   *hclust_method* default is NULL, which results in \"complete\" method to be used. It can accept alternative character strings indicating the method to be passed to *hclustfun*. By default hclustfun is hclust hence this can be one of \"ward.D\", \"ward.D2\", \"single\", \"complete\", \"average\" (= UPGMA), \"mcquitty\" (= WPGMA), \"median\" (= WPGMC) or \"centroid\" (= UPGMC).
+-   *hclust_method* default is NULL, which results in "complete" method to be used. It can accept alternative character strings indicating the method to be passed to *hclustfun*. By default hclustfun is hclust hence this can be one of "ward.D", "ward.D2", "single", "complete", "average" (= UPGMA), "mcquitty" (= WPGMA), "median" (= WPGMC) or "centroid" (= UPGMC).
 
 In general, a clustering model can be calibrated either manually or statistically.
 
 #### Manual approach
 
-In the code chunk below, the heatmap is plotted by using hierachical clustering algorithm with Euclidean distance\" and \"ward.D\" method.
+In the code chunk below, the heatmap is plotted by using hierachical clustering algorithm with Euclidean distance" and "ward.D" method.
 
 ```{r}
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
@@ -607,7 +610,7 @@ wh_d <- dist(normalize(wh_matrix[, -c(1, 2, 4, 5)]), method = "euclidean")
 dend_expend(wh_d)[[3]]
 ```
 
-The output table shows that \"average\" method should be used because it gave the high optimum value.
+The output table shows that "average" method should be used because it gave the high optimum value.
 
 Next, *find_k()* is used to determine the optimal number of cluster.
 
@@ -628,9 +631,9 @@ heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           k_row = 3)
 ```
 
-#### Seriation 
+#### Seriation
 
-One of the problems with hierarchical clustering is that it doesn\'t actually place the rows in a definite order, it merely constrains the space of possible orderings. Take three items A, B and C. If you ignore reflections, there are three possible orderings: ABC, ACB, BAC. If clustering them gives you ((A+B)+C) as a tree, you know that C can\'t end up between A and B, but it doesn\'t tell you which way to flip the A+B cluster. It doesn\'t tell you if the ABC ordering will lead to a clearer-looking heatmap than the BAC ordering.
+One of the problems with hierarchical clustering is that it doesn't actually place the rows in a definite order, it merely constrains the space of possible orderings. Take three items A, B and C. If you ignore reflections, there are three possible orderings: ABC, ACB, BAC. If clustering them gives you ((A+B)+C) as a tree, you know that C can't end up between A and B, but it doesn't tell you which way to flip the A+B cluster. It doesn't tell you if the ABC ordering will lead to a clearer-looking heatmap than the BAC ordering.
 
 **heatmaply** uses the seriation package to find an optimal ordering of rows and columns. Optimal means to optimize the Hamiltonian path length that is restricted by the dendrogram structure. This, in other words, means to rotate the branches so that the sum of distances between each adjacent leaf (label) will be minimized. This is related to a restricted version of the travelling salesman problem.
 
@@ -641,21 +644,21 @@ heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           seriate = "OLO")
 ```
 
-The default options is \"OLO\" (Optimal leaf ordering) which optimizes the above criterion (in O(n\^4)). Another option is \"GW\" (Gruvaeus and Wainer) which aims for the same goal but uses a potentially faster heuristic.
+The default options is "OLO" (Optimal leaf ordering) which optimizes the above criterion (in O(n\^4)). Another option is "GW" (Gruvaeus and Wainer) which aims for the same goal but uses a potentially faster heuristic.
 
 ```{r}
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           seriate = "GW")
 ```
 
-The option \"mean\" gives the output we would get by default from heatmap functions in other packages such as gplots::heatmap.2.
+The option "mean" gives the output we would get by default from heatmap functions in other packages such as gplots::heatmap.2.
 
 ```{r}
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           seriate = "mean")
 ```
 
-The option \"none\" gives us the dendrograms without any rotation that is based on the data matrix.
+The option "none" gives us the dendrograms without any rotation that is based on the data matrix.
 
 ```{r}
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
@@ -709,7 +712,7 @@ heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
 
 ## Overview
 
-Parallel coordinates plot is a data visualization specially designed for visualizing and analyzing multivariate, numerical data. It is ideal for comparing multiple variables together and seeing the relationships between them. For example, the variables contribute to Happiness Index. Parallel coordinates was invented by [Alfred Inselberg](http://www.math.tau.ac.il/~aiisreal/) in the 1970s as a way to visualize high-dimensional data. This data visualization technique is more often found in academic and scientific communities than in business and consumer data visualizations. As pointed out by [Stephen Few](https://www.perceptualedge.com/articles/b-eye/parallel_coordinates.pdf) (2006), \"This certainly isn\'t a chart that you would present to the board of directors or place on your Web site for the general public. In fact, the strength of parallel coordinates isn\'t in their ability to communicate some truth in the data to others, but rather in their ability to bring meaningful multivariate patterns and comparisons to light when used interactively for analysis.\" For example, parallel coordinates plot can be used to characterise clusters detected during customer segmentation.
+Parallel coordinates plot is a data visualization specially designed for visualizing and analyzing multivariate, numerical data. It is ideal for comparing multiple variables together and seeing the relationships between them. For example, the variables contribute to Happiness Index. Parallel coordinates was invented by [Alfred Inselberg](http://www.math.tau.ac.il/~aiisreal/) in the 1970s as a way to visualize high-dimensional data. This data visualization technique is more often found in academic and scientific communities than in business and consumer data visualizations. As pointed out by [Stephen Few](https://www.perceptualedge.com/articles/b-eye/parallel_coordinates.pdf) (2006), "This certainly isn't a chart that you would present to the board of directors or place on your Web site for the general public. In fact, the strength of parallel coordinates isn't in their ability to communicate some truth in the data to others, but rather in their ability to bring meaningful multivariate patterns and comparisons to light when used interactively for analysis." For example, parallel coordinates plot can be used to characterise clusters detected during customer segmentation.
 
 In this exercise, we will -
 
@@ -809,7 +812,7 @@ To rotate x-axis text labels, we use `axis.text.x` as argument to `theme()` func
 
 ### Adjusting the rotated x-axis text label
 
-Rotating x-axis text labels to 30 degrees makes the label overlap with the plot and we can avoid this by adjusting the text location using `hjust` argument to theme\'s text element with `element_text()`. We use `axis.text.x` as we want to change the look of x-axis text.
+Rotating x-axis text labels to 30 degrees makes the label overlap with the plot and we can avoid this by adjusting the text location using `hjust` argument to theme's text element with `element_text()`. We use `axis.text.x` as we want to change the look of x-axis text.
 
 ```{r}
 ggparcoord(data = wh, 
@@ -825,7 +828,7 @@ ggparcoord(data = wh,
 
 ## Plotting Interactive Parallel Coordinates Plot: parallelPlot methods
 
-parallelPlot is an R package specially designed to plot a parallel coordinates plot by using \'htmlwidgets\' package and [d3.js](https://d3js.org/). In this section, you will learn how to use functions provided in parallelPlot package to build interactive parallel coordinates plot.
+parallelPlot is an R package specially designed to plot a parallel coordinates plot by using 'htmlwidgets' package and [d3.js](https://d3js.org/). In this section, you will learn how to use functions provided in parallelPlot package to build interactive parallel coordinates plot.
 
 ### The basic plot
 
