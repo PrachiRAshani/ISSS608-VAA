@@ -18,6 +18,7 @@ editor: visual
 For the purpose of this study, we focus on the **resale of** **3-ROOM, 4-ROOM and 5-ROOM types flats** in Singapore. While we do explore the overall data from 2017, we mainly focus on deep diving into **2022** to gain some insights.
 
 ## 
+
 About the data
 
 The data is covers details of different types of houses sold in Singapore from January 2017 to February 2023. The data is sourced from [data.gov.sg](https://data.gov.sg/).
@@ -25,7 +26,7 @@ The data is covers details of different types of houses sold in Singapore from J
 The dataset contains the following fields:
 
 | Field name          | Field type                | Description                                                 |
-|--------------------|-------------------------|----------------------------|
+|---------------------|---------------------------|-------------------------------------------------------------|
 | month               | date (yyyy-mm)            | The year and month in which the property resale is recorded |
 | town                | character                 | The planning area in which the property sale is recorded    |
 | flat_type           | character                 | The type of flat that is sold                               |
@@ -541,7 +542,7 @@ treemap (resale_filter,
 
 2.  Joel Carron, [Violin Plots 101: Visualizing Distribution and Probability Density](https://mode.com/blog/violin-plot-examples/), Mode, 13 December 2021
 
-3.  Simon Foo, [Analysis of Singapore's Private Housing Property Market Prices (July 2017 to 2022)](Through the treemap, we see on overall glimpse of flat types by prices per square meter and resale prices in 000s across all planning areas.), RPubs, 21 July 2022
+3.  Simon Foo, [Analysis of Singapore's Private Housing Property Market Prices (July 2017 to 2022)](Through%20the%20treemap,%20we%20see%20on%20overall%20glimpse%20of%20flat%20types%20by%20prices%20per%20square%20meter%20and%20resale%20prices%20in%20000s%20across%20all%20planning%20areas.), RPubs, 21 July 2022
 
 4.  Kenneth Low, [Analysis of property market in Singapore](https://rpubs.com/kennethlyw/realis2018), RPubs, accessed 15 February 2023
 
