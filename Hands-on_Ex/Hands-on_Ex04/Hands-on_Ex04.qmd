@@ -19,7 +19,7 @@ editor: visual
 
 ```{r}
 options(repos=c(cran="http://cran.rstudio.com"))
-pacman::p_load(ggstatsplot, ggbetweenstats, readxl, performance, parameters, see, FunnelPlotR, plotly, knitr, tidyverse)
+pacman::p_load(ggstatsplot, readxl, performance, parameters, see, FunnelPlotR, plotly, knitr, tidyverse)
 ```
 
 #### Importing data
@@ -137,7 +137,7 @@ ggbarstats(exam1,
            y = GENDER)
 ```
 
-### Visualising Models
+### Visualizing Models
 
 #### Importing Excel file: readxl methods
 
@@ -200,7 +200,7 @@ We can also perform the complete by using [*check_model()*](https://easystats.gi
 check_model(model1)
 ```
 
-#### Visualising Regression Parameters: see methods
+#### Visualizing Regression Parameters: see methods
 
 In the code below, plot() of see package and parameters() of parameters package is used to visualise the parameters of a regression model.
 

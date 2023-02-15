@@ -34,16 +34,12 @@ pairs(wine[,1:11])
 ## Correlation plot
 
 ```{r}
-#| fig.heigth = 7,
-#| fig.width = 7
 #ggcorrmat(data = wine, cor.vars = 1:11)
 ```
 
 ## Correlation matrix with adjustments
 
 ```{r}
-#| fig.heigth = 7,
-#| fig.width = 7
 
 # ggstatsplot::ggcorrmat(
 #   data = wine,
@@ -65,8 +61,8 @@ wine.cor <- cor(wine[, 1:11])
 ## Creating the corrplot
 
 ```{r}
-#| fig.height = 8,
-#| fig.width = 8
+#|fig-width: 9
+#|fig-height: 9
 corrplot.mixed(wine.cor, 
                lower = "ellipse", 
                upper = "number",
@@ -134,7 +130,5 @@ wh_matrix <- data.matrix(wh)
 Using heatmaply, we plot the heatmap excluding some column values
 
 ```{r}
-#| fig.height = 8,
-#| fig.width = 8
 heatmaply(wh_matrix[, -c(1, 2, 4, 5)])
 ```
