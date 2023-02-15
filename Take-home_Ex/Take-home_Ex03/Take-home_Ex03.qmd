@@ -1,5 +1,5 @@
 ---
-title: "Take home exercise 3"
+title: "Take Home Exercise 3"
 subtitle: "Resale trends of flats in Singapore"
 author: "Prachi Ashani"
 date: 11 February 2023
@@ -13,20 +13,18 @@ format: html
 editor: visual
 ---
 
-## The Task
+## The task
 
 For the purpose of this study, we focus on the **resale of** **3-ROOM, 4-ROOM and 5-ROOM types flats** in Singapore. While we do explore the overall data from 2017, we mainly focus on deep diving into **2022** to gain some insights.
 
-## 
-
-About the data
+## About the data
 
 The data is covers details of different types of houses sold in Singapore from January 2017 to February 2023. The data is sourced from [data.gov.sg](https://data.gov.sg/).
 
 The dataset contains the following fields:
 
 | Field name          | Field type                | Description                                                 |
-|---------------------|---------------------------|-------------------------------------------------------------|
+|-----------------|-----------------|--------------------------------------|
 | month               | date (yyyy-mm)            | The year and month in which the property resale is recorded |
 | town                | character                 | The planning area in which the property sale is recorded    |
 | flat_type           | character                 | The type of flat that is sold                               |
@@ -99,16 +97,14 @@ ggplot(data = resale, aes(x = kprice, y = town, fill = after_stat(x))) +
   
   theme_classic2() +
     theme(
-      plot.title = element_text(family = "Georgia", face = "bold", size = 16),
+      text = element_text(family = "Georgia"),
+      plot.title = element_text(face = "bold"),
       legend.position="none",
-      axis.title.x = element_text(family = "Georgia", size = 12, hjust = 1),
-      axis.title.y = element_text(family = "Georgia", size = 12, angle = 360),
-      axis.text = element_text(family = "Georgia", size = 9)
       ) +
   
   scale_fill_viridis(name = "resale_prices", option = "F") +
   
-  labs(title = 'Resale Prices by Planning Area: {frame_time}') +
+  labs(title = 'Resale Prices by Planning Area: {frame_time}', x = "Resale Prices in 000s", y = "Planning Areas") +
   
   transition_time(resale$year) +
 
@@ -127,16 +123,14 @@ ggplot(data = resale, aes(x = flat_type, y = kprice, fill = flat_type)) +
   
   theme_classic2() +
     theme(
-      plot.title = element_text(family = "Georgia", face = "bold", size = 18),
+      text = element_text(family = "Georgia"),
+      plot.title = element_text(face = "bold"),
       legend.position="none",
-      axis.title.x = element_text(family = "Georgia", size = 12, hjust = 1),
-      axis.title.y = element_text(family = "Georgia", size = 12, angle = 360),
-      axis.text = element_text(family = "Georgia", size = 9)
       ) +
   
   scale_fill_viridis(option = "F", discrete = TRUE) +
 
-  labs(title = "Resale prices in 000s by flat-type: {frame_time}") +
+  labs(title = "Resale prices in 000s by flat-type: {frame_time}", x = "Flat type", y = "Resale Prices in 000s") +
   
   transition_time(resale$year) +
    
@@ -193,14 +187,7 @@ g_psm <- gghistostats(
   type = "bayes",
   test.value = 60,
   xlab = "price per sqm"
-) +
-  
-  theme_classic2() +
-    theme(
-      text = element_text(family = "Georgia"),
-      plot.title = element_text(face = "bold"),
-      legend.position="none"
-      )
+)
 
 g_farea <- gghistostats(
   data = resale_2022,
@@ -208,14 +195,7 @@ g_farea <- gghistostats(
   type = "bayes",
   test.value = 60,
   xlab = "floor area (sqm)"
-) +
-  
-  theme_classic2() +
-    theme(
-      text = element_text(family = "Georgia"),
-      plot.title = element_text(face = "bold"),
-      legend.position="none"
-      )
+) 
 
 g_age <- gghistostats(
   data = resale_2022,
@@ -223,14 +203,7 @@ g_age <- gghistostats(
   type = "bayes",
   test.value = 60,
   xlab = "property age"
-) +
-  
-  theme_classic2() +
-    theme(
-      text = element_text(family = "Georgia"),
-      plot.title = element_text(face = "bold"),
-      legend.position="none"
-      )
+)
 
 ggarrange(g_price, g_psm, g_farea, g_age, ncol = 2, nrow = 2)
 ```
@@ -350,7 +323,7 @@ We see the resale price distribution by flat_type (3-room, 4-room, and 5-room) u
 For price per square meter, the distribution shape for 3-room, 4-room, and 5-room is more or less similar. The price per square meter for all three room types is mostly around the median.
 
 ::: panel-tabset
-## Violin Plot - Resale Price
+## Violin Plot - Resale Price in 000s
 
 ```{r}
 #| code-fold: true
@@ -382,7 +355,7 @@ violin_kprice <- ggbetweenstats(
 violin_kprice
 ```
 
-## Violin Plot - PSM
+## Violin Plot - Price per Square Meter
 
 ```{r}
 #| code-fold: true
@@ -451,7 +424,7 @@ From the donut chart, we see that the resale of 4-room properties accounted for 
 From the grouped bar charts, we see that the number of 3-room type property sold is higher than the other from planning areas such as Ang Mio Ko, Bedok, and Queenstown; this is contrast to higher number of 4-room and 5-room type properties sold in areas such as Punggol, Sembawang, Senkang, etc.
 
 ::: panel-tabset
-## Flat type proportion overall
+## Flat type proportion - overall
 
 ```{r}
 #| code-fold: true
