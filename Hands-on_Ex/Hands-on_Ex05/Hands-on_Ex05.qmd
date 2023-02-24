@@ -1,5 +1,6 @@
 ---
-title: "Hands-on Exercise 5 - Building Ternary Plot with R, Visualising Correlation Matrices, Building Heatmap for Visualising and Analysing Multivariate Data, Creating Parallel Coordinates Plots with R"
+title: "Hands-on Exercise 5"
+sbtitle: "Building Ternary Plot with R, Visualising Correlation Matrices, Building Heatmap for Visualising and Analysing Multivariate Data, Creating Parallel Coordinates Plots with R"
 author: "Prachi Ashani"
 date: 09 February 2023
 date-modified: "`r Sys.Date()`"
@@ -221,13 +222,13 @@ On top that, some R package like ggstatsplot package also provides functions for
 On of the advantage of using *ggcorrmat()* over many other methods to visualise a correlation matrix is it's ability to provide a comprehensive and yet professional statistical report as shown in the figure below.
 
 ```{r}
-# ggstatsplot::ggcorrmat(
+# ggtern::ggcorrmat(
 #   data = wine,
 #   cor.vars = 1:11)
 ```
 
 ```{r}
-# ggstatsplot::ggcorrmat(
+# ggstern::ggcorrmat(
 #   data = wine,
 #   cor.vars = 1:11,
 #   ggcorrplot.args = list(outline.color = "black",

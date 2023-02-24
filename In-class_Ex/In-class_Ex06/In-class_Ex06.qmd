@@ -1,0 +1,12 @@
+---
+title: "In-class Exercise 6"
+author: "Prachi Ashani"
+date: 18 February 2023
+date-modified: "`r Sys.Date()`"
+execute: 
+  echo: true #to view the code chunk
+  eval: true #to view the execution
+  warning: false #to hide the warnings from R
+format: html
+editor: visual
+---

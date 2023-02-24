@@ -1,5 +1,6 @@
 ---
-title: "Hands-on Exercise 3 - Programming Interactive Data Visualisation with R"
+title: "Hands-on Exercise 3"
+subtitle: "Programming Interactive Data Visualisation with R"
 author: "Prachi Ashani"
 date: 04 February 2023
 date-modified: "`r Sys.Date()`"
@@ -505,7 +506,7 @@ ggplot(globalPop, aes(x = Old, y = Young,
   ease_aes('linear')            #<<         
 ```
 
-## Visualising Large Data Interactively
+## Visualizing Large Data Interactively
 
 For the purpose of this hands-on exercise, two data sets will be used. They are:
 

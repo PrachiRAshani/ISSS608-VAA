@@ -1,5 +1,6 @@
 ---
-title: "Hands-on Exercise 4 - Visual Statistical Analysis, Visualizing Uncertainty, Building Funnel Plot with R"
+title: "Hands-on Exercise 4"
+subtitle: "Visual Statistical Analysis, Visualizing Uncertainty, Building Funnel Plot with R"
 author: "Prachi Ashani"
 date: 04 February 2023
 date-modified: "`r Sys.Date()`"
