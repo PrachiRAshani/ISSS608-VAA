@@ -15,7 +15,7 @@ editor: visual
 
 ## The Task
 
-In this take-home exercise, weare required to uncover the impact of global economics, political dynamics and COVID-19 on Singapore's bi-lateral trade (i.e. Import, Export and Trade Balance) in 2022, by using appropriate analytical visualisation techniques learned in [Lesson 6: It's About Time]{.underline}.
+In this take-home exercise, we are required to uncover the impact of global economics, political dynamics and COVID-19 on Singapore's bi-lateral trade (i.e. Import, Export and Trade Balance) in 2022, by using appropriate analytical visualization techniques learned in [Lesson 6: It's About Time]{.underline}.
 
 ## The Data
 
@@ -35,7 +35,7 @@ For the purpose of this take-home exercise, Merchandise Trade provided by Depart
 
 ![](images/image-1749887649.png)
 
-## Installing the R Packages
+## Installing the R packages
 
 ```{r}
 remotes::install_github("nsgrantham/ggbraid")
@@ -43,7 +43,7 @@ remotes::install_github("nsgrantham/ggbraid")
 pacman::p_load(ggstatsplot, readxl, performance, parameters, see, FunnelPlotR, plotly, knitr, crosstalk, DT, ggdist, gganimate, ggpubr, hrbrthemes, ggridges, ggiraph, viridis, patchwork, scales, treemap, testthat, Hmisc, tidyverse, lubridate, zoo, ggthemes, gridExtra, CGPfunctions, ggHoriPlot, ggbraid, scales, data.table)
 ```
 
-## Importing the Dataset
+## Importing the dataset
 
 We now import the pivoted dataset for analysis in R.
 
@@ -291,6 +291,8 @@ pp1 <- ggplot(data = import_df, aes(x = Value, y = Country, fill = after_stat(x)
   theme_minimal () +
   
   scale_fill_viridis(option = "inferno") +
+  
+  scale_x_continuous(breaks = seq(0, 9000000, 1000000), labels = c("0", "10", "20", "30", "40", "50", "60", "70", "80", "90")) +
 
   theme(text = element_text(family = "Georgia"),
 
@@ -317,8 +319,8 @@ pp1 <- ggplot(data = import_df, aes(x = Value, y = Country, fill = after_stat(x)
   
   ggtitle("Singapore's Import Distribution by Countries: {frame_time}") +
   
-  xlab ("Country") +
-  ylab("Amount in Mn SGD")
+  ylab ("Country") +
+  xlab("Amount in Mn SGD")
   
   pp1 + transition_time(import_df$Year) + ease_aes("linear")
 ```
@@ -331,6 +333,10 @@ pp2 <- ggplot(data = export_df, aes(x = Value, y = Country, fill = after_stat(x)
   geom_density_ridges_gradient(scale = 3, rel_min_height = 0.01) +
   
   scale_fill_viridis(option = "inferno") +
+  
+  scale_x_continuous(breaks = seq(0, 7000000, 1000000), labels = c("0", "10", "20", "30", "40", "50", "60", "70"))
+  
+  theme_minimal() +
 
   theme(text = element_text(family = "Georgia"),
 
@@ -357,8 +363,8 @@ pp2 <- ggplot(data = export_df, aes(x = Value, y = Country, fill = after_stat(x)
   
   ggtitle("Singapore's Export Distribution by Countries: {frame_time}") +
   
-  xlab ("Country") +
-  ylab("Amount in Mn SGD")
+  ylab ("Country") +
+  xlab("Amount in Mn SGD")
   
   pp2 + transition_time(import_df$Year) + ease_aes("linear")
 ```
@@ -371,6 +377,10 @@ pp3 <- ggplot(data = tb_df, aes(x = Value, y = Country, fill = after_stat(x))) +
   geom_density_ridges_gradient(scale = 3, rel_min_height = 0.01) +
   
   scale_fill_viridis(option = "inferno") +
+  
+  scale_x_continuous(breaks = seq(-3000000, 3000000, 1000000), labels = c("-30", "-20", "-10", "0", "10", "20", "30"))
+  
+  theme_minimal() +
 
   theme(text = element_text(family = "Georgia"),
 
@@ -397,8 +407,8 @@ pp3 <- ggplot(data = tb_df, aes(x = Value, y = Country, fill = after_stat(x))) +
   
   ggtitle("Singapore's Trade Balance Distribution by Countries: {frame_time}") +
   
-  xlab ("Country") +
-  ylab("Amount in Mn SGD")
+  ylab ("Country") +
+  xlab("Amount in Mn SGD")
   
   pp3 + transition_time(import_df$Year) + ease_aes("linear")
 ```
