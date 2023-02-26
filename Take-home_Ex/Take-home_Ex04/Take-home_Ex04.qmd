@@ -288,13 +288,13 @@ pp1 <- ggplot(data = import_df, aes(x = Value, y = Country, fill = after_stat(x)
   
   geom_density_ridges_gradient(scale = 3, rel_min_height = 0.01) +
   
-  theme_minimal () +
-  
-  scale_fill_viridis(option = "inferno") +
-  
   scale_x_continuous(breaks = seq(0, 9000000, 1000000), labels = c("0", "10", "20", "30", "40", "50", "60", "70", "80", "90")) +
 
-  theme(text = element_text(family = "Georgia"),
+  scale_fill_viridis(option = "inferno") +
+  
+  theme_minimal () +
+  
+    theme(text = element_text(family = "Georgia"),
 
         plot.margin = margin(t=1, r=1, b=1, l=1),
         plot.title = element_text(size = 10, face = 'bold', hjust = 0.5),
@@ -332,13 +332,13 @@ pp2 <- ggplot(data = export_df, aes(x = Value, y = Country, fill = after_stat(x)
   
   geom_density_ridges_gradient(scale = 3, rel_min_height = 0.01) +
   
-  scale_fill_viridis(option = "inferno") +
+  scale_x_continuous(breaks = seq(0, 7000000, 1000000), labels = c("0", "10", "20", "30", "40", "50", "60", "70")) +
   
-  scale_x_continuous(breaks = seq(0, 7000000, 1000000), labels = c("0", "10", "20", "30", "40", "50", "60", "70"))
+  scale_fill_viridis(option = "inferno") +  
   
-  theme_minimal() +
-
-  theme(text = element_text(family = "Georgia"),
+  theme_minimal () +
+  
+    theme(text = element_text(family = "Georgia"),
 
         plot.margin = margin(t=1, r=1, b=1, l=1),
         plot.title = element_text(size = 10, face = 'bold', hjust = 0.5),
@@ -366,7 +366,7 @@ pp2 <- ggplot(data = export_df, aes(x = Value, y = Country, fill = after_stat(x)
   ylab ("Country") +
   xlab("Amount in Mn SGD")
   
-  pp2 + transition_time(import_df$Year) + ease_aes("linear")
+  pp2 + transition_time(export_df$Year) + ease_aes("linear")
 ```
 
 ```{r}
@@ -376,13 +376,13 @@ pp3 <- ggplot(data = tb_df, aes(x = Value, y = Country, fill = after_stat(x))) +
   
   geom_density_ridges_gradient(scale = 3, rel_min_height = 0.01) +
   
-  scale_fill_viridis(option = "inferno") +
+  scale_x_continuous(breaks = seq(-3000000, 3000000, 1000000), labels = c("-30", "-20", "-10", "0", "10", "20", "30")) +
   
-  scale_x_continuous(breaks = seq(-3000000, 3000000, 1000000), labels = c("-30", "-20", "-10", "0", "10", "20", "30"))
+  scale_fill_viridis(option = "inferno") +  
   
-  theme_minimal() +
-
-  theme(text = element_text(family = "Georgia"),
+  theme_minimal () +
+  
+    theme(text = element_text(family = "Georgia"),
 
         plot.margin = margin(t=1, r=1, b=1, l=1),
         plot.title = element_text(size = 10, face = 'bold', hjust = 0.5),
@@ -410,7 +410,7 @@ pp3 <- ggplot(data = tb_df, aes(x = Value, y = Country, fill = after_stat(x))) +
   ylab ("Country") +
   xlab("Amount in Mn SGD")
   
-  pp3 + transition_time(import_df$Year) + ease_aes("linear")
+  pp3 + transition_time(tb_df$Year) + ease_aes("linear")
 ```
 
 ### 4. Comparing Singapore's trade proportion across countries using area (proportion) plot
@@ -448,6 +448,8 @@ proportion1 <- ggplot(data = prop_imp, aes(x = Year, y = annual_value, group = C
   
   scale_fill_viridis(option = "inferno", discrete = TRUE) +
 
+  theme_minimal () +
+  
   theme(text = element_text(family = "Georgia"),
 
         plot.margin = margin(t=1, r=1, b=1, l=1),
@@ -461,7 +463,7 @@ proportion1 <- ggplot(data = prop_imp, aes(x = Year, y = annual_value, group = C
         panel.grid.minor.y = element_blank(),
 
         axis.line = element_line(color = 'grey'),
-        axis.title = element_text(size = 8),
+        axis.title = element_text(size = 10),
         axis.title.y = element_text(angle = 90, vjust = 1.03),
         axis.text = element_text(size = 6),
         axis.text.x = element_text(angle=90),
@@ -469,13 +471,13 @@ proportion1 <- ggplot(data = prop_imp, aes(x = Year, y = annual_value, group = C
         axis.ticks.y = element_line(color = 'grey'),
         axis.ticks.x = element_line('grey'),
 
-        legend.title = element_text(size = 8),
-        legend.text = element_text(size = 6)) +
+        legend.position = "None") +
   
   ggtitle("Singapore Proportion of Exports") +
-  
-  xlab ("Year") +
-  ylab("Amount in Mn SGD")
+    
+    xlab ("Year") +
+    
+    ylab("Amount in Mn SGD")
 
 ggplotly(proportion1)
 ```
@@ -701,6 +703,6 @@ p3
 
 ## References
 
-1.  Grantham N, "[*ggbraid: Braid Ribbons in 'ggplot2'*](https://nsgrantham.github.io/ggbraid/, https://github.com/nsgrantham/ggbraid/){style="font-size: 11pt;"}", 2022
+1.  Grantham N, "[*ggbraid: Braid Ribbons in 'ggplot2'*](https://nsgrantham.github.io/ggbraid/,%20https://github.com/nsgrantham/ggbraid/){style="font-size: 11pt;"}", 2022
 2.  Claus O. Wilke, "[*Introduction to ggridges*](https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html)", CRAN.R-project, 22 September 2022
 3.  "[*Comparing proportions across time with ggstream in R*](https://rforpoliticalscience.com/2022/01/31/comparing-proportions-across-time-with-dplyr-in-r/)", R statistics for Political Science, 31 January 2022
