@@ -9,6 +9,7 @@ execute:
   echo: true
   eval: true
   warning: false
+  message: false
 editor: visual
 ---
 
@@ -20,54 +21,26 @@ In this take-home exercise, weare required to uncover the impact of global econo
 
 For the purpose of this take-home exercise, Merchandise Trade provided by Department of Statistics, Singapore (DOS) will be used. The data is available under the sub-section of Merchandise Trade by Region/Market. The study period chosen is between **January 2020 to December 2022**.
 
-## Data Wrangling and Preparation
+## Preparing the data
 
 **Step 1**: The Merchandise Trade by Region/Market dataset is downloaded from this DOS website ([link](https://www.singstat.gov.sg/find-data/search-by-theme/trade-and-investment/merchandise-trade/latest-data)).
 
 **Step 2**: Only country level details are retained in 1000 Dollars and region level details (America, Asia, Africa, Europe, and Oceania) are eliminated as the focus is on countries.
 
-**Step 3**: Next, trade balance data for a country is calculated using the formula ***Trade Balance = Exports - Imports***,for all countries.
+**Step 3**: Next, trade balance data for a country is calculated using the formula ***Trade Balance = Exports - Imports***, for all countries.
 
-**Step 4**: All trade parameters - import, export, and trade balance - for all countries are combined in one MS Excel worksheet from January 2020 to December 2022.
+**Step 4**: All trade parameters - import, export, and trade balance - for all countries are combined in one MS Excel worksheet as ''TradeType" from January 2020 to December 2022.
 
-![](images/Data%20wrangle%20in%20MSExcel.png)
+**Step 5**: Convert the year-month column headers to American date format (%m/%d/%Y).
 
-However, to analyze the data, it is better to pivot the time and corresponding trade value columns. We do this using **Tableau**.
-
-**Step 5**: Load the MS Excel file in Tableau.
-
-![](images/TabStep1.png)
-
-![](images/TabStep2.png)
-
-**Step 6**: Drag and drop the 'main' worksheet to the table shelf.
-
-![](images/image-1366528860.png)
-
-**Step 7**: Select all the date columns from Dec 2022 to Jan 2020 for pivoting.
-
-![](images/TabStep4.png)
-
-![](images/TabStep5.png)
-
-Step 10: Rename the 'Type' column name to TradeType, 'Pivot Field Name' column name to MonYear, and 'Pivot Field Value' column name to Value.
-
-![](images/image-1084836612.png)
-
-![](images/image-1830017805.png)
-
-Step 9: In 'Sheet1', click on 'Data' tab in the menu bar, click on the MS Excel file name, click on 'View Data'.
-
-![](images/image-725709014.png)
-
-**Step 9**: Once the 'View Data' panel opens, click on 'Download' to export the pivoted data file.
-
-![](images/TabStep9.png)
+![](images/image-1749887649.png)
 
 ## Installing the R Packages
 
 ```{r}
-pacman::p_load(ggstatsplot, readxl, performance, parameters, see, FunnelPlotR, plotly, knitr, crosstalk, DT, ggdist, gganimate, ggpubr, hrbrthemes, ggridges, ggiraph, viridis, patchwork, scales, treemap, testthat, Hmisc, tidyverse, lubridate, ggthemes, gridExtra, CGPfunctions, ggHoriPlot, data.table)
+remotes::install_github("nsgrantham/ggbraid")
+
+pacman::p_load(ggstatsplot, readxl, performance, parameters, see, FunnelPlotR, plotly, knitr, crosstalk, DT, ggdist, gganimate, ggpubr, hrbrthemes, ggridges, ggiraph, viridis, patchwork, scales, treemap, testthat, Hmisc, tidyverse, lubridate, zoo, ggthemes, gridExtra, CGPfunctions, ggHoriPlot, ggbraid, scales, data.table)
 ```
 
 ## Importing the Dataset
@@ -75,5 +48,636 @@ pacman::p_load(ggstatsplot, readxl, performance, parameters, see, FunnelPlotR, p
 We now import the pivoted dataset for analysis in R.
 
 ```{r}
-data <- read_csv("data/tradedata.csv")
+maindata <- read_csv("data/main.csv")
 ```
+
+## Wrangling the data
+
+### 1. Pivoting the data
+
+We pivot the date columns to have a long and lean data structure. This makes analyzing data easy in R. We rename the pivot_field_name column name to ""MonYear" and pivot_field_value column name to "Value".
+
+```{r}
+data_pivot <- pivot_longer(data = maindata, cols = -c("Country", "TradeType"), names_to = "MonYear", values_to = "Value")
+```
+
+### 2. Formatting the date column
+
+Using the zoo package, we first convert the "MonYear" field to date format ("%m/%d/%Y"), and then further convert the date to "%m-%y" format. This helps improve the aesthetics of the charts we will plot going further.
+
+```{r}
+data_pivot$MonYear <- as.Date(data_pivot$MonYear, "%m/%d/%Y")
+data_pivot$MonthYear <- format(data_pivot$MonYear, "%m-%y")
+```
+
+### 3. Extracting the month and year columns
+
+```{r}
+data_pivot$Month <- month(data_pivot$MonYear)
+data_pivot$Year <- year(data_pivot$MonYear)
+```
+
+### 4. Filtering the six countries
+
+For the purpose of our analysis, we choose ASEAN-5 nations - Thailand, Philippines, Viet Nam, Indonesia, and Malaysia. These nations also have close geographic proximity to Singapore. Additionally, we select Brunei Darussalam as the countries have excellent ties.
+
+```{r}
+country_filter <-  c("Thailand", "Philippines", "Vietnam, Socialist Republic Of", "Indonesia", "Malaysia", "Brunei Darussalam")
+
+country_data <- filter(data_pivot, (Country %in% country_filter))
+```
+
+### 5. Simplifying the country names
+
+We change "Vietnam, Socialist Republic of" to "Vietnam" and "Brunei Darussalam" to "Brunei".
+
+```{r}
+data <- country_data %>%
+  mutate(Country = case_when(Country == "Vietnam, Socialist Republic Of" ~ "Vietnam", Country == "Brunei Darussalam" ~ "Brunei", Country == "Thailand" ~ "Thailand", Country == "Indonesia" ~ "Indonesia", Country == "Philippines" ~ "Philippines", Country == "Malaysia" ~ "Malaysia"))
+```
+
+## Visualizing the data
+
+### 1. Bar Graph
+
+We see the Singapore import and export trade over from 2020 to 2022. Singapore has extensive trade relations with Malaysia, Indonesia, and Malaysia.
+
+```{r}
+#| code-fold: true
+pp <- ggplot(data = data, aes(x = Year, y = Value, fill = TradeType)) +
+  
+  geom_bar(data = data %>% filter(TradeType == "Imports"),
+           stat = "identity", position = "identity") +
+                            
+  
+  geom_bar(data = data %>% filter(TradeType == "Exports"),
+           stat = "identity",
+           position = "identity",
+           mapping = aes(y = -(Value))) +
+
+  scale_y_continuous(breaks = seq(-8000000,8000000,2000000), labels = c("80", "60", "40", "20", "0", "20", "40", "60", "80")) +
+  
+  scale_fill_manual(values = c("#140B35FF", "#A92E5EFF")) +
+
+  theme_minimal () +
+
+  theme(text = element_text(family = "Georgia"),
+
+        plot.margin = margin(t=1, r=1, b=1, l=1),
+        plot.title = element_text(size = 10, face = 'bold', hjust = 0.5),
+        plot.caption = element_text(hjust = 0, face = 'italic'),
+        plot.caption.position = 'plot',
+
+        panel.grid.major.y = element_line(colour = 'grey', linewidth = 0.3, linetype = "dashed"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+
+        axis.line = element_line(color = 'grey'),
+        axis.title = element_text(size = 8),
+        axis.title.y = element_text(angle = 90, vjust = 1.03),
+        axis.text = element_text(size = 6),
+        axis.ticks.y = element_line(color = 'grey'),
+        axis.ticks.x = element_line('grey'),
+
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 6)) +
+  
+  # # creating a facet wrap for each region
+  facet_wrap(~`Country`, ncol = 3) +
+  
+  ggtitle("Singapore's Imports and Exports by Countries") +
+  xlab ("Year") +
+  ylab("Amount in Mn SGD")
+```
+
+```{r}
+ggplotly(pp)
+```
+
+### Line Graph
+
+Next, we see how the trade balance relation of Singapore has been over the three year period with each of these countries. However, not much insights can be drawn. Thus, we need ti take a deeper look.
+
+```{r}
+#| code-fold: true
+tb_agg <- aggregate(Value ~ Country + Year, data = data, sum)
+
+p1 <- ggplot(data = tb_agg, aes(x = Year, y = Value, color = Country)) +
+  
+  geom_line(data = tb_agg) +
+  geom_point(data = tb_agg) +
+  
+  scale_x_continuous(breaks = seq(2020, 2022, 1), labels = c("2020", "2021", "2022")) +
+  
+  scale_y_continuous(breaks = seq(0, 150000000, 10000000), labels = c("0","1","2","3", "4", "5", "6","7","8","9", "10", "11", "12", "13", "14", "15")) +
+
+  theme_minimal () +
+  
+  scale_colour_viridis(option = "inferno", discrete = TRUE) +
+
+  theme(text = element_text(family = "Georgia"),
+
+        plot.margin = margin(t=1, r=1, b=1, l=1),
+        plot.title = element_text(size = 10, face = 'bold', hjust = 0.5),
+        plot.caption = element_text(hjust = 0, face = 'italic'),
+        plot.caption.position = 'plot',
+
+        panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+
+        axis.line = element_line(color = 'grey'),
+        axis.title = element_text(size = 8),
+        axis.title.y = element_text(angle = 90, vjust = 1.03),
+        axis.text = element_text(size = 6),
+        axis.text.x = element_text(angle=90),
+        
+        axis.ticks.y = element_line(color = 'grey'),
+        axis.ticks.x = element_line('grey'),
+
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 6)) +
+  
+  ggtitle("Singapore Trade Balance by Countries") +
+  
+  xlab ("Year") +
+  ylab("Amount in Mn SGD")
+
+ggplotly(p1)
+```
+
+Taking cue from the previous chart, we see that Singapore has a significant trade surplus with Indonesia and significant trade deficit with Malaysia. We see that the movement in the trade balance has also been sizable over the months. With respect ti Thailand, we see Singapore swing between trade surplus and deficit, although annually Singapore maintains a trade surplus with Thailand.
+
+For other countries, the trade balance is contained and more or less constant over the months.
+
+```{r}
+#| code-fold: true
+p2 <- ggplot(data = data, aes(x = MonYear, y = Value, color = Country)) +
+  
+  geom_line(data = data %>% filter(TradeType == "TradeBalance")) +
+  geom_point(data = data %>% filter(TradeType == "TradeBalance")) +
+  
+  scale_x_date(date_breaks = "1 month", date_labels = "%b-%y") +
+  
+  scale_y_continuous(breaks = seq(-2000000,3500000,500000), labels = c("-20","-15","-10","-5", "0","5","10","15","20","25", "30", "35")) +
+
+  theme_minimal () +
+  
+  scale_colour_viridis(option = "inferno", discrete = TRUE) +
+
+  theme(text = element_text(family = "Georgia"),
+
+        plot.margin = margin(t=1, r=1, b=1, l=1),
+        plot.title = element_text(size = 10, face = 'bold', hjust = 0.5),
+        plot.caption = element_text(hjust = 0, face = 'italic'),
+        plot.caption.position = 'plot',
+
+        panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+
+        axis.line = element_line(color = 'grey'),
+        axis.title = element_text(size = 8),
+        axis.title.y = element_text(angle = 90, vjust = 1.03),
+        axis.text = element_text(size = 6),
+        axis.text.x = element_text(angle=90),
+        
+        axis.ticks.y = element_line(color = 'grey'),
+        axis.ticks.x = element_line('grey'),
+
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 6)) +
+  
+  ggtitle("Singapore trade balance by country") +
+  
+  xlab ("Month & Year") +
+  ylab("Amount in Mn SGD")
+
+ggplotly(p2)
+```
+
+### Ridgeline Plots
+
+```{r}
+#| code-fold: true
+
+import_df <- data %>% 
+  filter(TradeType == "Imports")
+import_df$Year <- as.integer(import_df$Year)
+
+export_df <- data %>% 
+  filter(TradeType == "Exports")
+import_df$Year <- as.integer(export_df$Year)
+
+tb_df <- data %>% 
+  filter(TradeType == "TradeBalance")
+import_df$Year <- as.integer(tb_df$Year)
+```
+
+```{r}
+#| code-fold: true
+
+pp1 <- ggplot(data = import_df, aes(x = Value, y = Country, fill = after_stat(x))) +
+  
+  geom_density_ridges_gradient(scale = 3, rel_min_height = 0.01) +
+  
+  theme_minimal () +
+  
+  scale_fill_viridis(option = "inferno") +
+
+  theme(text = element_text(family = "Georgia"),
+
+        plot.margin = margin(t=1, r=1, b=1, l=1),
+        plot.title = element_text(size = 10, face = 'bold', hjust = 0.5),
+        plot.caption = element_text(hjust = 0, face = 'italic'),
+        plot.caption.position = 'plot',
+
+        panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+
+        axis.line = element_line(color = 'grey'),
+        axis.title = element_text(size = 10),
+        axis.title.y = element_text(angle = 90, vjust = 1.03),
+        axis.text = element_text(size = 6),
+        axis.text.x = element_text(angle=90),
+        
+        axis.ticks.y = element_line(color = 'grey'),
+        axis.ticks.x = element_line('grey'),
+
+        legend.position = "None") +
+  
+  ggtitle("Singapore's Import Distribution by Countries: {frame_time}") +
+  
+  xlab ("Country") +
+  ylab("Amount in Mn SGD")
+  
+  pp1 + transition_time(import_df$Year) + ease_aes("linear")
+```
+
+```{r}
+#| code-fold: true
+
+pp2 <- ggplot(data = export_df, aes(x = Value, y = Country, fill = after_stat(x))) +
+  
+  geom_density_ridges_gradient(scale = 3, rel_min_height = 0.01) +
+  
+  scale_fill_viridis(option = "inferno") +
+
+  theme(text = element_text(family = "Georgia"),
+
+        plot.margin = margin(t=1, r=1, b=1, l=1),
+        plot.title = element_text(size = 10, face = 'bold', hjust = 0.5),
+        plot.caption = element_text(hjust = 0, face = 'italic'),
+        plot.caption.position = 'plot',
+
+        panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+
+        axis.line = element_line(color = 'grey'),
+        axis.title = element_text(size = 10),
+        axis.title.y = element_text(angle = 90, vjust = 1.03),
+        axis.text = element_text(size = 6),
+        axis.text.x = element_text(angle=90),
+        
+        axis.ticks.y = element_line(color = 'grey'),
+        axis.ticks.x = element_line('grey'),
+
+        legend.position = "None") +
+  
+  ggtitle("Singapore's Export Distribution by Countries: {frame_time}") +
+  
+  xlab ("Country") +
+  ylab("Amount in Mn SGD")
+  
+  pp2 + transition_time(import_df$Year) + ease_aes("linear")
+```
+
+```{r}
+#| code-fold: true
+
+pp3 <- ggplot(data = tb_df, aes(x = Value, y = Country, fill = after_stat(x))) +
+  
+  geom_density_ridges_gradient(scale = 3, rel_min_height = 0.01) +
+  
+  scale_fill_viridis(option = "inferno") +
+
+  theme(text = element_text(family = "Georgia"),
+
+        plot.margin = margin(t=1, r=1, b=1, l=1),
+        plot.title = element_text(size = 10, face = 'bold', hjust = 0.5),
+        plot.caption = element_text(hjust = 0, face = 'italic'),
+        plot.caption.position = 'plot',
+
+        panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+
+        axis.line = element_line(color = 'grey'),
+        axis.title = element_text(size = 10),
+        axis.title.y = element_text(angle = 90, vjust = 1.03),
+        axis.text = element_text(size = 6),
+        axis.text.x = element_text(angle=90),
+        
+        axis.ticks.y = element_line(color = 'grey'),
+        axis.ticks.x = element_line('grey'),
+
+        legend.position = "None") +
+  
+  ggtitle("Singapore's Trade Balance Distribution by Countries: {frame_time}") +
+  
+  xlab ("Country") +
+  ylab("Amount in Mn SGD")
+  
+  pp3 + transition_time(import_df$Year) + ease_aes("linear")
+```
+
+### Area (Proportion) Plot
+
+We use area plot to see the proportion of import and export trade relations of Singapore with ASEAN-5 nations and Brunei Darussalam.
+
+There is a sizable import and export trade proportion difference between Malaysia and other nations.
+
+```{r}
+#| code-fold: true
+prop_imp <- data %>%
+  filter(TradeType == "Imports") %>% 
+  group_by(Year, Country) %>% 
+  summarise(annual_value = sum(Value))
+
+prop_exp <- data %>%
+  filter(TradeType == "Exports") %>% 
+  group_by(Year, Country) %>% 
+  summarise(annual_value = sum(Value))
+```
+
+```{r}
+#| code-fold: true
+proportion1 <- ggplot(data = prop_imp, aes(x = Year, y = annual_value, group = Country, fill = Country)) +
+  
+  geom_area(size=0.4, colour="black") +
+  
+  labs(title = "Proportion of Imports in Singapore from 2020-2022") +
+  
+  scale_x_continuous(breaks = seq(2020, 2022, 1), labels = c(2020, 2021, 2022)) +
+  
+  #scale_y_continuous(breaks = seq(1000000,2500000,250000), labels = c("10","12.5", "15", "17.5", "20", "22.5", "25")) +
+  
+  theme_minimal () +
+  
+  scale_fill_viridis(option = "inferno", discrete = TRUE) +
+
+  theme(text = element_text(family = "Georgia"),
+
+        plot.margin = margin(t=1, r=1, b=1, l=1),
+        plot.title = element_text(size = 10, face = 'bold', hjust = 0.5),
+        plot.caption = element_text(hjust = 0, face = 'italic'),
+        plot.caption.position = 'plot',
+
+        panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+
+        axis.line = element_line(color = 'grey'),
+        axis.title = element_text(size = 8),
+        axis.title.y = element_text(angle = 90, vjust = 1.03),
+        axis.text = element_text(size = 6),
+        axis.text.x = element_text(angle=90),
+        
+        axis.ticks.y = element_line(color = 'grey'),
+        axis.ticks.x = element_line('grey'),
+
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 6)) +
+  
+  ggtitle("Singapore Proportion of Exports") +
+  
+  xlab ("Year") +
+  ylab("Amount in Mn SGD")
+
+ggplotly(proportion1)
+```
+
+```{r}
+#| code-fold: true
+proportion2 <- ggplot(data = prop_imp, aes(x = Year, y = annual_value, group = Country, fill = Country)) +
+  
+  geom_area(size=0.4, colour="black") +
+  
+  scale_x_continuous(breaks = seq(2020, 2022, 1), labels = c(2020, 2021, 2022)) +
+  
+  #scale_y_continuous(breaks = seq(1000000,2500000,250000), labels = c("10","12.5", "15", "17.5", "20", "22.5", "25")) +
+  
+  theme_minimal () +
+  
+  scale_fill_viridis(option = "inferno", discrete = TRUE) +
+
+  theme(text = element_text(family = "Georgia"),
+
+        plot.margin = margin(t=1, r=1, b=1, l=1),
+        plot.title = element_text(size = 10, face = 'bold', hjust = 0.5),
+        plot.caption = element_text(hjust = 0, face = 'italic'),
+        plot.caption.position = 'plot',
+
+        panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+
+        axis.line = element_line(color = 'grey'),
+        axis.title = element_text(size = 8),
+        axis.title.y = element_text(angle = 90, vjust = 1.03),
+        axis.text = element_text(size = 6),
+        axis.text.x = element_text(angle=90),
+        
+        axis.ticks.y = element_line(color = 'grey'),
+        axis.ticks.x = element_line('grey'),
+
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 6)) +
+  
+  ggtitle("Singapore Proportion of Exports") +
+  
+  xlab ("Year") +
+  ylab("Amount in Mn SGD")
+
+ggplotly(proportion2)
+```
+
+### Braid Plot
+
+Now we further look into the three countries - Malaysia, Indonesia, and Thailand - to observe trade trends over the three year period.
+
+With Malaysia, we observe that Singapore mostly has a trade deficit. This deficit has increased gradually over the three years.
+
+With Indonesia, it is interesting to note that,
+
+```{r}
+#| code-fold: true
+df_wide <- pivot_wider(data, names_from = TradeType, values_from = Value)
+```
+
+::: panel-tabset
+## Trade Balance - Malaysia
+
+```{r}
+p1 <- ggplot(data = data) +
+  geom_line(aes(MonYear, Value, linetype = TradeType), data = data %>% filter(Country == "Malaysia", TradeType == "Imports")) +
+  
+  geom_line(aes(MonYear, Value, linetype = TradeType), data = data %>% filter(Country == "Malaysia", TradeType == "Exports")) +
+  
+    geom_braid(aes(MonYear, ymin = Imports, ymax = Exports, fill = Imports < Exports), data = df_wide %>% filter(Country == "Malaysia")) +
+  guides(linetype = "none") +
+  
+  scale_x_date(date_breaks = "1 month", date_labels = "%b") +
+  
+  scale_y_continuous(breaks = seq(0,10000000,2500000), labels = c("0","25","50","75", "100")) +
+  
+  theme_minimal () +
+  
+  scale_fill_manual(values = c("#85216BFF", "#F5DB4BFF"), name = "Trade Balance", labels = c("Deficit", "Surplus")) +
+
+  theme(text = element_text(family = "Georgia"),
+
+        plot.margin = margin(t=1, r=1, b=1, l=1),
+        plot.title = element_text(size = 10, face = 'bold', hjust = 0.5),
+        plot.caption = element_text(hjust = 0, face = 'italic'),
+        plot.caption.position = 'plot',
+
+        panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+
+        axis.line = element_line(color = 'grey'),
+        axis.title = element_text(size = 8),
+        axis.title.y = element_text(angle = 90, vjust = 1.03),
+        axis.text = element_text(size = 6),
+        axis.text.x = element_text(angle=90),
+        
+        axis.ticks.y = element_line(color = 'grey'),
+        axis.ticks.x = element_line('grey'),
+
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 6)) +
+  
+  ggtitle("Singapore-Malaysia Trade Balance") +
+  
+  xlab ("Month & Year") +
+  ylab("Amount in Mn SGD")
+
+p1
+```
+
+## Trade Balance - Indonesia
+
+```{r}
+p2 <- ggplot() +
+  geom_line(aes(MonYear, Value, linetype = TradeType), data = data %>% filter(Country == "Indonesia", TradeType == "Imports")) +
+  
+  geom_line(aes(MonYear, Value, linetype = TradeType), data = data %>% filter(Year == 2022, Country == "Indonesia", TradeType == "Exports")) +
+  
+    geom_braid(aes(MonYear, ymin = Imports, ymax = Exports, fill = Imports < Exports), data = df_wide %>% filter(Year == 2022, Country == "Indonesia")) +
+  guides(linetype = "none") +
+  
+  scale_x_date(date_breaks = "1 month", date_labels = "%b-%y") +
+  
+  scale_y_continuous(breaks = seq(1500000,5500000,500000), labels = c("15","20","25", "30", "35", "40", "45", "50", "55")) +
+  
+  theme_minimal () +
+  
+  scale_fill_manual(values = c("#85216BFF", "#F5DB4BFF"), name = "Trade Balance", labels = c("Deficit", "Surplus")) +
+
+  theme(text = element_text(family = "Georgia"),
+
+        plot.margin = margin(t=1, r=1, b=1, l=1),
+        plot.title = element_text(size = 10, face = 'bold', hjust = 0.5),
+        plot.caption = element_text(hjust = 0, face = 'italic'),
+        plot.caption.position = 'plot',
+
+        panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+
+        axis.line = element_line(color = 'grey'),
+        axis.title = element_text(size = 8),
+        axis.title.y = element_text(angle = 90, vjust = 1.03),
+        axis.text = element_text(size = 6),
+        axis.text.x = element_text(angle=90),
+        
+        axis.ticks.y = element_line(color = 'grey'),
+        axis.ticks.x = element_line('grey'),
+
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 6)) +
+  
+  ggtitle("Singapore-Indonesia Trade Balance") +
+  
+  xlab ("Month & Year") +
+  ylab("Amount in Mn SGD")
+ 
+p2
+```
+
+## Trade Balance - Thailand
+
+```{r}
+p3 <- ggplot(data = data,  fill = after_stat(x)) +
+  geom_line(aes(MonYear, Value, linetype = TradeType), data = data %>% filter(Country == "Thailand", TradeType == "Imports")) +
+  
+  geom_line(aes(MonYear, Value, linetype = TradeType), data = data %>% filter(Country == "Thailand", TradeType == "Exports")) +
+  
+    geom_braid(aes(MonYear, ymin = Imports, ymax = Exports, fill = Imports < Exports), data = df_wide %>% filter(Country == "Thailand")) +
+  guides(linetype = "none") +
+  
+  scale_x_date(date_breaks = "1 month", date_labels = "%b-%y") +
+  
+  scale_y_continuous(breaks = seq(1000000,2500000,250000), labels = c("10","12.5", "15", "17.5", "20", "22.5", "25")) +
+  
+  theme_minimal () +
+  
+  scale_fill_manual(values = c("#85216BFF", "#F5DB4BFF"), name = "Trade Balance", labels = c("Deficit", "Surplus")) +
+
+  theme(text = element_text(family = "Georgia"),
+
+        plot.margin = margin(t=1, r=1, b=1, l=1),
+        plot.title = element_text(size = 10, face = 'bold', hjust = 0.5),
+        plot.caption = element_text(hjust = 0, face = 'italic'),
+        plot.caption.position = 'plot',
+
+        panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+
+        axis.line = element_line(color = 'grey'),
+        axis.title = element_text(size = 8),
+        axis.title.y = element_text(angle = 90, vjust = 1.03),
+        axis.text = element_text(size = 6),
+        axis.text.x = element_text(angle=90),
+        
+        axis.ticks.y = element_line(color = 'grey'),
+        axis.ticks.x = element_line('grey'),
+
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 6)) +
+  
+  ggtitle("Singapore-Thailand Trade Balance") +
+  
+  xlab ("Month & Year") +
+  ylab("Amount in Mn SGD")
+ 
+p3
+```
+:::
+
+### 

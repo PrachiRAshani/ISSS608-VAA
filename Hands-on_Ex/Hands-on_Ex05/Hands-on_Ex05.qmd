@@ -21,7 +21,7 @@ Ternary plots are a way of displaying the distribution and variability of three-
 ## Installing and launching R packages
 
 ```{r}
-pacman::p_load(ggtern, plotly, corrplot, tidyverse)
+pacman::p_load(plotly, corrplot, ggplot2, ggstatsplot, ggtern, tidyverse)
 ```
 
 ## Data Preparation
@@ -57,7 +57,7 @@ agpop_mutated <- pop_data %>%
 Use ***ggtern()*** function of **ggtern** package to create a simple ternary plot.
 
 ```{r}
-ggtern(data=agpop_mutated,aes(x=YOUNG,y=ACTIVE, z=OLD)) +
+ggtern::ggtern(data=agpop_mutated,aes(x=YOUNG,y=ACTIVE, z=OLD)) +
   geom_point()
 ```
 
@@ -222,13 +222,13 @@ On top that, some R package like ggstatsplot package also provides functions for
 On of the advantage of using *ggcorrmat()* over many other methods to visualise a correlation matrix is it's ability to provide a comprehensive and yet professional statistical report as shown in the figure below.
 
 ```{r}
-# ggtern::ggcorrmat(
+# ggcorrmat(
 #   data = wine,
 #   cor.vars = 1:11)
 ```
 
 ```{r}
-# ggstern::ggcorrmat(
+# ggcorrmat(
 #   data = wine,
 #   cor.vars = 1:11,
 #   ggcorrplot.args = list(outline.color = "black",

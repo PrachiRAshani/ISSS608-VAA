@@ -1,0 +1,21 @@
+---
+title: "In-class Exercise 7"
+subtitle: ""
+author: "Prachi Ashani"
+date: 25 February 2023
+date-modified: "`r Sys.Date()`"
+execute: 
+  echo: true #to view the code chunk
+  eval: true #to view the execution
+  warning: false #to hide the warnings from R
+format: html
+editor: visual
+---
+
+## Installing the R Packages
+
+```{r}
+pacman::p_load(sf, tmap, tidyverse)
+```
+
+Importing the data

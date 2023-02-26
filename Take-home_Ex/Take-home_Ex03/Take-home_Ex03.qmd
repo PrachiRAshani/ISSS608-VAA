@@ -24,7 +24,7 @@ The data is covers details of different types of houses sold in Singapore from J
 The dataset contains the following fields:
 
 | Field name          | Field type                | Description                                                 |
-|---------------------|---------------------------|-------------------------------------------------------------|
+|-----------------|-----------------|--------------------------------------|
 | month               | date (yyyy-mm)            | The year and month in which the property resale is recorded |
 | town                | character                 | The planning area in which the property sale is recorded    |
 | flat_type           | character                 | The type of flat that is sold                               |
@@ -292,7 +292,7 @@ As anticipated, the floor_area shows a strong positive correlation with resale p
 ```{r}
 #| code-fold: true
 
-ggscatterstats(
+ggstatsplot::ggscatterstats(
   data = resale_filter,
   x = floor_area_sqm,
   y = kprice,
