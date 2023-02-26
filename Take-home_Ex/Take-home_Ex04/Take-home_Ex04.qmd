@@ -98,7 +98,7 @@ data <- country_data %>%
 
 ## Visualizing the data
 
-### 1. Bar Graph
+### 1. Understanding the annual trade trends of Singapore using bar graph
 
 We see the Singapore import and export trade over from 2020 to 2022. Singapore has extensive trade relations with Malaysia, Indonesia, and Malaysia.
 
@@ -149,13 +149,11 @@ pp <- ggplot(data = data, aes(x = Year, y = Value, fill = TradeType)) +
   ggtitle("Singapore's Imports and Exports by Countries") +
   xlab ("Year") +
   ylab("Amount in Mn SGD")
-```
 
-```{r}
 ggplotly(pp)
 ```
 
-### Line Graph
+### 2. Deep diving into Singapore's trade balance using line graph
 
 Next, we see how the trade balance relation of Singapore has been over the three year period with each of these countries. However, not much insights can be drawn. Thus, we need ti take a deeper look.
 
@@ -259,7 +257,13 @@ p2 <- ggplot(data = data, aes(x = MonYear, y = Value, color = Country)) +
 ggplotly(p2)
 ```
 
-### Ridgeline Plots
+### 3. Gauging Singapore's import-export distribution using ridgeline plot
+
+We see that the import and the export trade distribution with Malaysia has been wide and increasing over the time period. This is also applicable to export distribution of Indonesia.
+
+With Brunei Darussalam, the import and export trade distribution remained long and narrow and hardly increased over the time period.
+
+With Thailand, Vietnam and Philippines, while the import distribution has remained long and narrow, the export distribution has changed to being slightly short and wide and increased in value.
 
 ```{r}
 #| code-fold: true
@@ -399,11 +403,11 @@ pp3 <- ggplot(data = tb_df, aes(x = Value, y = Country, fill = after_stat(x))) +
   pp3 + transition_time(import_df$Year) + ease_aes("linear")
 ```
 
-### Area (Proportion) Plot
+### 4. Comparing Singapore's trade proportion across countries using area (proportion) plot
 
 We use area plot to see the proportion of import and export trade relations of Singapore with ASEAN-5 nations and Brunei Darussalam.
 
-There is a sizable import and export trade proportion difference between Malaysia and other nations.
+There is a sizable import and export trade proportion difference between Malaysia and other nations over the years.
 
 ```{r}
 #| code-fold: true
@@ -512,13 +516,15 @@ proportion2 <- ggplot(data = prop_imp, aes(x = Year, y = annual_value, group = C
 ggplotly(proportion2)
 ```
 
-### Braid Plot
+### 5. Studying the movement in Singapore's trade balance using braid plot
 
 Now we further look into the three countries - Malaysia, Indonesia, and Thailand - to observe trade trends over the three year period.
 
-With Malaysia, we observe that Singapore mostly has a trade deficit. This deficit has increased gradually over the three years.
+With Malaysia, we observe that Singapore mostly has a trade deficit. While the trade difference has been contained, we infer that both import and export activities with Malaysia has increased over the time period.
 
-With Indonesia, it is interesting to note that,
+With Indonesia, it is interesting to note that after COVID-19, the trade difference with Indonesia has increased significantly over the time period. Clearly, the imports from Indonesia to Singapore have been on a rise.
+
+With Thailand, we see that Singapore mostly maintains a trade surplus. While the trade difference aggravated during COVUD-19, it is now more or less contained.
 
 ```{r}
 #| code-fold: true
@@ -526,9 +532,10 @@ df_wide <- pivot_wider(data, names_from = TradeType, values_from = Value)
 ```
 
 ::: panel-tabset
-## Trade Balance - Malaysia
+## Malaysia
 
 ```{r}
+#| code-fold: true
 p1 <- ggplot(data = data) +
   geom_line(aes(MonYear, Value, linetype = TradeType), data = data %>% filter(Country == "Malaysia", TradeType == "Imports")) +
   
@@ -537,7 +544,7 @@ p1 <- ggplot(data = data) +
     geom_braid(aes(MonYear, ymin = Imports, ymax = Exports, fill = Imports < Exports), data = df_wide %>% filter(Country == "Malaysia")) +
   guides(linetype = "none") +
   
-  scale_x_date(date_breaks = "1 month", date_labels = "%b") +
+  scale_x_date(date_breaks = "1 month", date_labels = "%b-y%") +
   
   scale_y_continuous(breaks = seq(0,10000000,2500000), labels = c("0","25","50","75", "100")) +
   
@@ -577,15 +584,16 @@ p1 <- ggplot(data = data) +
 p1
 ```
 
-## Trade Balance - Indonesia
+## Indonesia
 
 ```{r}
+#| code-fold: true
 p2 <- ggplot() +
   geom_line(aes(MonYear, Value, linetype = TradeType), data = data %>% filter(Country == "Indonesia", TradeType == "Imports")) +
   
-  geom_line(aes(MonYear, Value, linetype = TradeType), data = data %>% filter(Year == 2022, Country == "Indonesia", TradeType == "Exports")) +
+  geom_line(aes(MonYear, Value, linetype = TradeType), data = data %>% filter(Country == "Indonesia", TradeType == "Exports")) +
   
-    geom_braid(aes(MonYear, ymin = Imports, ymax = Exports, fill = Imports < Exports), data = df_wide %>% filter(Year == 2022, Country == "Indonesia")) +
+    geom_braid(aes(MonYear, ymin = Imports, ymax = Exports, fill = Imports < Exports), data = df_wide %>% filter(Country == "Indonesia")) +
   guides(linetype = "none") +
   
   scale_x_date(date_breaks = "1 month", date_labels = "%b-%y") +
@@ -628,9 +636,10 @@ p2 <- ggplot() +
 p2
 ```
 
-## Trade Balance - Thailand
+## Thailand
 
 ```{r}
+#| code-fold: true
 p3 <- ggplot(data = data,  fill = after_stat(x)) +
   geom_line(aes(MonYear, Value, linetype = TradeType), data = data %>% filter(Country == "Thailand", TradeType == "Imports")) +
   
@@ -680,4 +689,8 @@ p3
 ```
 :::
 
-### 
+## References
+
+1.  Grantham N, "[*ggbraid: Braid Ribbons in 'ggplot2'*](https://nsgrantham.github.io/ggbraid/, https://github.com/nsgrantham/ggbraid/){style="font-size: 11pt;"}", 2022
+2.  Claus O. Wilke, "[*Introduction to ggridges*](https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html)", CRAN.R-project, 22 September 2022
+3.  "[*Comparing proportions across time with ggstream in R*](https://rforpoliticalscience.com/2022/01/31/comparing-proportions-across-time-with-dplyr-in-r/)", R statistics for Political Science, 31 January 2022
